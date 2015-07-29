@@ -25,7 +25,7 @@ class c1b291cb852 extends Module
 
   public function install() {
     parent::install();
-    if(!$this->registerHook('displayProductButtons')) return false;
+    if(!$this->registerHook('productButtons')) return false;
     return true;
   }
 
@@ -52,7 +52,7 @@ class c1b291cb852 extends Module
     $textToShow=Configuration::get($this->name.'_text_to_show');
   }
 
-  public function hookDisplayProductButtons() {
+  public function hookProductButtons() {
 
     global $smarty;
     $smarty->assign('our_text',Configuration::get($this->name.'_our_text'));
