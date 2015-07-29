@@ -1,3 +1,5 @@
+config*.xml
+
 # Logs
 logs
 *.log
