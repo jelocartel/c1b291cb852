@@ -3,7 +3,7 @@ eeelo {$our_text} yo
   <!-- {foreach from=$combination key=id_attribute item=group_attribute}
     {$id_attribute} - {$combination[$id_attribute]}, {$group_attribute}<br/>
   {/foreach} -->
-  {if $combination.group_name == "Color"}
+  {if strpos($combination.group_name, "Color") !== false}
     {$combination.attribute_name} <br/>
   {/if}
 {/foreach}
