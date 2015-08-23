@@ -25,7 +25,7 @@ class c1b291cb852 extends Module
 
   public function install() {
     parent::install();
-    if(!$this->registerHook('productButtons')) return false;
+    if(!$this->registerHook('displayProductButtons')) return false;
     return true;
   }
 
@@ -52,13 +52,16 @@ class c1b291cb852 extends Module
     $textToShow=Configuration::get($this->name.'_text_to_show');
   }
 
-  public function hookProductButtons() {
+  public function hookDisplayProductButtons() {
 
     global $smarty;
-    $smarty->assign('our_text',Configuration::get($this->name.'_our_text'));
-    $smarty->assign('uri', $_SERVER['REQUEST_URI']);
-    return $this->display(__FILE__, 'template.tpl');
+    global $cookie;
 
+    $this_product = new Product($_GET['id_product']);
+    $combinations = $this_product->getAttributeCombinations($cookie->id_lang);
+    $smarty->assign('our_text', $cookie->id_lang);
+    $smarty->assign('combinations', $combinations);
+    return $this->display(__FILE__, 'template.tpl');
   }
 
 }
