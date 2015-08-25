@@ -56,9 +56,11 @@ class c1b291cb852 extends Module
 
     global $smarty;
     global $cookie;
+    global $db;
 
     $this_product = new Product($_GET['id_product']);
     $combinations = $this_product->getAttributeCombinations($cookie->id_lang);
+    $smarty->assign('colors', '$this_product->colors');
     $smarty->assign('our_text', $cookie->id_lang);
     $smarty->assign('combinations', $combinations);
     return $this->display(__FILE__, 'template.tpl');
