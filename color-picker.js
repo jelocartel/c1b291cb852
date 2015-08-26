@@ -1,4 +1,4 @@
-var Color = (function() {
+var Color = function(n, c) {
   var name;
   var color;
   var oldQty = 0;
@@ -7,19 +7,22 @@ var Color = (function() {
   var chosenList = document.getElementById('c1-chosen-list');
   var item;
   var quantityPanel;
+  var qtyDonut;
 
   var updateQuantity = function(deltaQty){
     oldQty = quantity;
     quantityPanel.value = quantity = (quantity+deltaQty);
     if (quantity === 1 && oldQty === 0) {
       createDonut();
+
+      // Add 'selected indicator (✓)' to the color bar
       var selectedIndicator = document.createElement('img');
       selectedIndicator.src = dir + "modules/c1b291cb852/checked-sign.png";
       selectedIndicator.classList.add('c1-checked-sign');
       item.appendChild(selectedIndicator);
     }
-    var amount = document.getElementById(name + '1');
-    amount.getElementsByClassName('c1-qtyDonat')[0].textContent = quantity;
+
+    qtyDonut.textContent = quantity;
     setChosenListTitle();
   };
 
@@ -30,22 +33,23 @@ var Color = (function() {
     var  item = document.createElement('div');
     chosenItem.appendChild(item);
     item.id = name + '1';
-    item.classList.add('c1-donat-div');
+    item.classList.add('c1-donut-div');
     if (color.charAt(0) === '#') {
-     item.style.backgroundColor = color;
+      item.style.backgroundColor = color;
     } else {
       item.style.backgroundImage = 'url('+ dir+color+')';
       item.style.backgroundSize = 'cover';
     }
-    // item.style.backgroundColor = color;
-    var donat = document.createElement('img');
-    item.appendChild(donat);
-    donat.src = dir + "modules/c1b291cb852/donat.png";
-    donat.classList.add('c1-donat');
-    var qtyDonat = document.createElement('div');
-    item.appendChild(qtyDonat);
-    qtyDonat.classList.add('c1-qtyDonat');
-    qtyDonat.innerHTML = quantity;
+
+    var donut = document.createElement('img');
+    donut.src = dir + "modules/c1b291cb852/donat.png";
+    donut.classList.add('c1-donut');
+    item.appendChild(donut);
+
+    qtyDonut = document.createElement('div');
+    item.appendChild(qtyDonut);
+    qtyDonut.classList.add('c1-qtyDonut');
+    qtyDonut.innerHTML = quantity;
   };
 
   var inputUpdate = function(evt) {
@@ -104,7 +108,7 @@ var Color = (function() {
         quantity -= 1;
         qty.value = quantity;
         var amount = document.getElementById(name+'1');
-        amount.getElementsByClassName('c1-qtyDonat')[0].innerHTML = quantity;
+        amount.getElementsByClassName('c1-qtyDonut')[0].innerHTML = quantity;
         //amount.innerHTML = quantity;
         removeFromCart();
         if (quantity === 0) {
@@ -139,5 +143,5 @@ var Color = (function() {
 
   setChosenListTitle();
 
-  return create;
-})();
+  create(n, c);
+};
