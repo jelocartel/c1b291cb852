@@ -1,4 +1,66 @@
-var Color = (function(){
+var Color = function(n, c) {
+  var name;
+  var color;
+  var oldQty = 0;
+  var quantity = 0;
+  var list = document.getElementById('c1-color-list');
+  var chosenList = document.getElementById('c1-chosen-list');
+  var item;
+  var quantityPanel;
+  var qtyDonut;
+  var selectedIndicator;
+  var chosenItem;
+
+  var updateQuantity = function(deltaQty){
+    oldQty = quantity;
+    quantityPanel.value = quantity = Math.max((quantity+deltaQty), 0);
+    if (quantity === 1 && oldQty === 0) {
+      createDonut();
+
+      // Add 'selected indicator (✓)' to the color bar
+      selectedIndicator = document.createElement('img');
+      selectedIndicator.src = dir + "modules/c1b291cb852/checked-sign.png";
+      selectedIndicator.classList.add('c1-checked-sign');
+      item.appendChild(selectedIndicator);
+    } else if (quantity === 0 && chosenItem) {
+      chosenList.removeChild(chosenItem);
+      chosenItem = null;
+
+      item.removeChild(selectedIndicator);
+    }
+
+    qtyDonut.textContent = quantity;
+    setChosenListTitle();
+  };
+
+  var createDonut = function() {
+    chosenItem = document.createElement('li');
+    chosenItem.id = name;
+    chosenList.appendChild(chosenItem);
+
+    var  item = document.createElement('div');
+    item.id = name + '1';
+    item.classList.add('c1-donut-div');
+    chosenItem.appendChild(item);
+
+    if (color.charAt(0) === '#') {
+      item.style.backgroundColor = color;
+    } else {
+      item.style.backgroundImage = 'url('+ dir+color+')';
+      item.style.backgroundSize = 'cover';
+    }
+
+    var donut = document.createElement('img');
+    donut.src = dir + "modules/c1b291cb852/donat.png";
+    donut.classList.add('c1-donut');
+    item.appendChild(donut);
+
+    qtyDonut = document.createElement('div');
+    qtyDonut.classList.add('c1-qtyDonut');
+    qtyDonut.innerHTML = quantity;
+    item.appendChild(qtyDonut);
+  };
+
   var inputUpdate = function(evt) {
     var value = evt.target.value;
     var id = evt.target.parentNode.parentNode.id;
@@ -7,111 +69,52 @@ var Color = (function(){
     }
   };
 
-  var Color = function(name, color) {
-    var list = document.getElementById('c1-color-list');
-    var item = document.createElement('li');
-    list.appendChild(item);
-    if (color.charAt(0) === '#') {
-    item.style.backgroundColor = color;
-    } else {
-      item.style.backgroundImage = 'url('+ dir+color+')';
-      item.style.backgroundSize = 'cover';
-    }
+  var create = function(colorName, colorValue) {
+    name = colorName;
+    color = colorValue;
+    item = document.createElement('li');
     item.id = 'c1-' + name + '1';
+    if (color.charAt(0) === '#') {
+      item.style.backgroundColor = color;
+    } else {
+      item.style.backgroundImage = 'url(' + dir + color + ')';
+      item.style.backgroundSize = 'cover'; //XXX
+    }
+    list.appendChild(item);
 
-    var quantity = 0;
-
-    var quantityPanel = document.createElement('div');
+    quantityPanel = document.createElement('div');
+    quantityPanel.classList.add('c1-qty-panel');
     item.appendChild(quantityPanel);
-    quantityPanel.classList.add('c1-qty-panel')
 
     var incrementButton = document.createElement('div');
-    quantityPanel.appendChild(incrementButton);
     incrementButton.classList.add('c1-button');
-    incrementButton.innerHTML = '+';
-    var qty = document.createElement('input');
-    quantityPanel.appendChild(qty);
-    qty.classList.add('c1-qty');
-    qty.addEventListener('keydown', inputUpdate);
+    incrementButton.textContent = '+';
+    quantityPanel.appendChild(incrementButton);
+
+    var quantityInput = document.createElement('input');
+    quantityInput.classList.add('c1-qty');
+    quantityInput.addEventListener('keydown', inputUpdate);
+    quantityPanel.appendChild(quantityInput);
+    quantityPanel.value = quantity;
+
     var decrementButton = document.createElement('div');
     quantityPanel.appendChild(decrementButton);
+    decrementButton.textContent = '-';
     decrementButton.classList.add('c1-button');
-    decrementButton.innerHTML = '-';
 
     var itemName = document.createElement('p');
-    item.appendChild(itemName);
     itemName.classList.add('c1-color-name');
-    itemName.innerHTML = name;
+    itemName.textContent = name;
+    item.appendChild(itemName);
 
-    var chosenList = document.getElementById('c1-chosen-list');
-
-    qty.value = quantity;
     incrementButton.addEventListener('click', function() {
-      quantity += 1;
-      qty.value = quantity;
-      drawInCart();
-      var amount = document.getElementById(name + '1');
-      amount.getElementsByClassName('c1-qtyDonat')[0].innerHTML = quantity;
-      if (quantity === 1 ){
-        var picked = document.createElement('img');
-        picked.src = dir + "modules/c1b291cb852/checked-sign.png";
-        item.appendChild(picked);
-        picked.classList.add('c1-checked-sign');
-      }
-      setChosenListTitle();
-      //amount.innerHTML = quantity;
+      updateQuantity(1);
     });
     decrementButton.addEventListener('click', function() {
-      if (quantity === 0){
-        return
-      } else {
-        quantity -= 1;
-        qty.value = quantity;
-        var amount = document.getElementById(name+'1');
-        amount.getElementsByClassName('c1-qtyDonat')[0].innerHTML = quantity;
-        //amount.innerHTML = quantity;
-        removeFromCart();
-        if (quantity === 0) {
-          var picked = item.getElementsByClassName('c1-checked-sign')[0];
-          item.removeChild(picked);
-        }
-      }
-      setChosenListTitle();
-    })
+      updateQuantity(-1);
+    });
+  };
 
-    var drawInCart = function() {
-      if (quantity === 1) {
-        var chosenItem = document.createElement('li');
-        chosenList.appendChild(chosenItem);
-        chosenItem.id = name;
-        var  item = document.createElement('div');
-        chosenItem.appendChild(item);
-        item.id = name + '1';
-        item.classList.add('c1-donat-div');
-    	  if (color.charAt(0) === '#') {
-    	 	item.style.backgroundColor = color;
-    	  } else {
-    	  	item.style.backgroundImage = 'url('+ dir+color+')';
-    	  	item.style.backgroundSize = 'cover';
-    	  }
-        // item.style.backgroundColor = color;
-        var donat = document.createElement('img');
-        item.appendChild(donat);
-        donat.src = dir + "modules/c1b291cb852/donat.png";
-        donat.classList.add('c1-donat');
-        var qtyDonat = document.createElement('div');
-        item.appendChild(qtyDonat);
-        qtyDonat.classList.add('c1-qtyDonat');
-        qtyDonat.innerHTML = quantity;
-      }
-    }
-    var removeFromCart = function() {
-      if (quantity === 0) {
-        chosenList.removeChild(document.getElementById(name));
-      }
-    }
-
-  }
   var setChosenListTitle = function() {
     var chosenList = document.getElementById('c1-chosen-list');
     if (chosenList.children.length === 0) {
@@ -129,5 +132,5 @@ var Color = (function(){
 
   setChosenListTitle();
 
-  return Color;
-})();
+  create(n, c);
+};
