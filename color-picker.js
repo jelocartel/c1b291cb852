@@ -23,7 +23,7 @@ var Color = (function(){
 
     var quantityPanel = document.createElement('div');
     item.appendChild(quantityPanel);
-    quantityPanel.classList.add('c1-qty-panel')
+    quantityPanel.classList.add('c1-qty-panel');
 
     var incrementButton = document.createElement('div');
     quantityPanel.appendChild(incrementButton);
@@ -63,7 +63,7 @@ var Color = (function(){
     });
     decrementButton.addEventListener('click', function() {
       if (quantity === 0){
-        return
+        return;
       } else {
         quantity -= 1;
         qty.value = quantity;
@@ -77,7 +77,7 @@ var Color = (function(){
         }
       }
       setChosenListTitle();
-    })
+    });
 
     var drawInCart = function() {
       if (quantity === 1) {
@@ -104,14 +104,14 @@ var Color = (function(){
         qtyDonat.classList.add('c1-qtyDonat');
         qtyDonat.innerHTML = quantity;
       }
-    }
+    };
     var removeFromCart = function() {
       if (quantity === 0) {
         chosenList.removeChild(document.getElementById(name));
       }
-    }
+    };
 
-  }
+  };
   var setChosenListTitle = function() {
     var chosenList = document.getElementById('c1-chosen-list');
     if (chosenList.children.length === 0) {
