@@ -106,12 +106,12 @@ var Color = function(name, color) {
       chosenItem.appendChild(item);
       item.id = name + '1';
       item.classList.add('c1-donat-div');
-    if (color.charAt(0) === '#') {
-    item.style.backgroundColor = color;
-    } else {
-      item.style.backgroundImage = 'url('+ dir+color+')';
-      item.style.backgroundSize = 'cover';
-    }      
+  	  if (color.charAt(0) === '#') {
+  	 	item.style.backgroundColor = color;
+  	  } else {
+  	  	item.style.backgroundImage = 'url('+ dir+color+')';
+  	  	item.style.backgroundSize = 'cover';
+  	  }
       // item.style.backgroundColor = color;
       var donat = document.createElement('img');
       item.appendChild(donat);
@@ -136,12 +136,14 @@ var setChosenListTitle = function() {
     document.getElementById('c1-chosen-list-title').innerHTML = 'Choose colors';
   } else {
     document.getElementById('c1-chosen-list-title').innerHTML = 'Your colors:';
-  } 
+  }
 };
 
 
 var el = document.getElementById('c1-chosen-list');
-var sortable = Sortable.create(el);
+var sortable = Sortable.create(el, {
+  animation: 150
+});
 
 setChosenListTitle();
 
