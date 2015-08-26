@@ -2,13 +2,13 @@
 <script src="{$base_dir}modules/c1b291cb852/Sortable.min.js"></script>
 <div class='c1-main-container'>
   <div class='c1-available-colors'>
-    <ul id='c1-color-list'> 
-    </ul>  
+    <ul id='c1-color-list'>
+    </ul>
   </div>
   <div class='c1-chosen-colors'>
     <h4>Your Cans:</h4>
     <ul id='c1-chosen-list'>
-    </ul>  
+    </ul>
   </div>
   <br style='clear: both'>
 </div>
@@ -71,7 +71,7 @@ var Color = function(name, color) {
       qty.value = quantity;
       var amount = document.getElementById(name+'1');
       amount.getElementsByClassName('c1-qtyDonat')[0].innerHTML = quantity;
-      //amount.innerHTML = quantity;      
+      //amount.innerHTML = quantity;
       removeFromCart();
       if (quantity === 0) {
         var picked = item.getElementsByClassName('c1-checked-sign')[0];
@@ -116,9 +116,9 @@ var sortable = Sortable.create(el);
 
 {foreach from=$combinations key=id item=combination}
   {if strpos($combination.group_name, "Color") !== false}
-    new Color('{$combination.attribute_name}', '#' + ~~(Math.random()*1000));
+    new Color('{$combination.attribute_name}', '{$combination.color_value}');
   {/if}
-{/foreach} 
+{/foreach}
 
 
 </script>
