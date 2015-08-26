@@ -11,14 +11,14 @@ class c1b291cb852 extends Module
     $this->name = 'c1b291cb852';
     $this->tab = 'front_office_features';
     $this->version = '1.0.0';
-    $this->author = 'Misio Pysio';
+    $this->author = 'Jelocartel';
     $this->need_instance = 0;
     $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
     $this->bootstrap = true;
 
     parent::__construct();
-    $this->displayName = $this->l('c1b291cb852 module');
-    $this->description = $this->l('Description of my module.');
+    $this->displayName = $this->l('Color picker module');
+    $this->description = $this->l('Select colors from the given color spectrum');
 
     $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
   }
