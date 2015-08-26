@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
 	<name>c1b291cb852</name>
-	<displayName><![CDATA[c1b291cb852 module]]></displayName>
+	<displayName><![CDATA[Color picker module]]></displayName>
 	<version><![CDATA[1.0.0]]></version>
-	<description><![CDATA[Description of my module.]]></description>
-	<author><![CDATA[Misio Pysio]]></author>
+	<description><![CDATA[Select colors from the given color spectrum]]></description>
+	<author><![CDATA[Jelocartel]]></author>
 	<tab><![CDATA[front_office_features]]></tab>
 	<confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>
 	<is_configurable>0</is_configurable>

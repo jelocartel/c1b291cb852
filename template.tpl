@@ -17,6 +17,12 @@
 var dir = '{$base_dir}';
 {literal}
 
+var inputUpdate = function(evt){
+  var value = evt.target.value;
+  var id = evt.target.parentNode.parentNode.id;
+  console.log(value, id);
+};
+
 var Color = function(name, color) {
   var list = document.getElementById('c1-color-list');
   var item = document.createElement('li');
@@ -41,9 +47,7 @@ var Color = function(name, color) {
   var qty = document.createElement('input');
   quantityPanel.appendChild(qty);
   qty.classList.add('c1-qty');
-  // if (qty.value !== null) {
-  // 	quantity = qty.value;
-  // }
+  qty.addEventListener('blur', inputUpdate);
   var decrementButton = document.createElement('div');
   quantityPanel.appendChild(decrementButton);
   decrementButton.classList.add('c1-button');
