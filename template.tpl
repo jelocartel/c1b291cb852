@@ -30,7 +30,8 @@ var Color = function(name, color) {
   if (color.charAt(0) === '#') {
  	item.style.backgroundColor = color;
   } else {
-  	item.style.backgroundImage = 'url('+color+')';
+  	item.style.backgroundImage = 'url('+ dir+color+')';
+  	item.style.backgroundSize = 'cover';
   }
   item.id = 'c1-' + name + '1';
 
@@ -104,7 +105,8 @@ var Color = function(name, color) {
 	  if (color.charAt(0) === '#') {
 	 	item.style.backgroundColor = color;
 	  } else {
-	  	item.style.backgroundImage = 'url('+color+')';
+	  	item.style.backgroundImage = 'url('+ dir+color+')';
+	  	item.style.backgroundSize = 'cover';
 	  }      
       // item.style.backgroundColor = color;
       var donat = document.createElement('img');
