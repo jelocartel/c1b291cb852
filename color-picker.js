@@ -98,8 +98,8 @@ var Color = function(n, c) {
     quantityInput = document.createElement('input');
     quantityInput.classList.add('c1-qty');
     quantityInput.addEventListener('keydown', inputUpdate);
+    quantityInput.value = quantity;
     quantityPanel.appendChild(quantityInput);
-    quantityPanel.value = quantity;
 
     var decrementButton = document.createElement('div');
     quantityPanel.appendChild(decrementButton);
