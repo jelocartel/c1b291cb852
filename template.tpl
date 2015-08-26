@@ -107,7 +107,7 @@ var Color = function(name, color) {
 	  } else {
 	  	item.style.backgroundImage = 'url('+ dir+color+')';
 	  	item.style.backgroundSize = 'cover';
-	  }      
+	  }
       // item.style.backgroundColor = color;
       var donat = document.createElement('img');
       item.appendChild(donat);
@@ -128,7 +128,9 @@ var Color = function(name, color) {
 }
 
 var el = document.getElementById('c1-chosen-list');
-var sortable = Sortable.create(el);
+var sortable = Sortable.create(el, {
+  animation: 150
+});
 
 {/literal}
 
