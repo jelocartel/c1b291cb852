@@ -39,6 +39,7 @@ body {
   box-sizing: border-box;
   width: 100%;
   display: block;
+  height: 30px;
 }
 .c1-qty-panel {
   display: none;
@@ -52,6 +53,7 @@ body {
   text-transform: uppercase;
   font-size: 11px;
   color: #fff;
+  padding-top: 6px;
 }
 .c1-qty {
   display: inline-block;
@@ -73,10 +75,11 @@ body {
   border: solid 1px #333;
   box-sizing: border-box;
   text-align: center;
-  font-size: 22px;
+  font-size: 20px;
   cursor: pointer;
+  padding-top: 5px;
 }
-li:hover .c1-qty-panel {
+.c1-available-colors li:hover .c1-qty-panel {
   display: inline-block;
 }
 .c1-checked-sign {
@@ -89,7 +92,7 @@ li:hover .c1-qty-panel {
 .c1-chosen-colors h4 {
   margin: 0;
   padding: 0;
-  padding-bottom: 20px;
+  /*padding-bottom: 20px;*/
   padding-top: 10px;
   background-color: #181818;
   color: yellow;
@@ -139,15 +142,15 @@ li:hover .c1-qty-panel {
   display: block;
   position: absolute;
   bottom: 0;
-  right: 7px;
+  right: 2px;
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
   text-align: center;
-  width: 20px !important;
-  height: 20px !important;
+  width: 12px !important;
+  height: 12px !important;
   border-radius: 50%;
-  font-size: 12px;
-  padding-top: 4px;
+  font-size: 10px;
+  padding-top: 0px;
   box-sizing: border-box;
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -158,6 +161,12 @@ li:hover .c1-qty-panel {
     padding-top: 1px;
     font-size: 11px;
   }
+  .c1-chosen-colors li {
+    width: 50%;
+  }
+  .c1-available-colors li:hover .c1-color-name {
+    display: none;
+  }
 }
 @media (max-width: 767px) {
   .c1-qtyDonat {
@@ -165,6 +174,17 @@ li:hover .c1-qty-panel {
     width: 12px !important;
     height: 12px !important;
     padding-top: 0;
+    font-size: 10px;
+  }
+  .c1-chosen-colors li {
+    width: 50%;
+  }
+  .c1-available-colors li:hover .c1-color-name {
+    display: none;
+  }
+}
+@media (max-width: 550px) {
+  .c1-color-name {
     font-size: 10px;
   }
 }
