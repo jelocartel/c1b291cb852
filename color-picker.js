@@ -8,19 +8,25 @@ var Color = function(n, c) {
   var item;
   var quantityPanel;
   var qtyDonut;
+  var selectedIndicator;
+  var chosenItem;
 
   var updateQuantity = function(deltaQty){
     oldQty = quantity;
-    quantityPanel.value = quantity = (quantity+deltaQty);
+    quantityPanel.value = quantity = Math.max((quantity+deltaQty), 0);
     if (quantity === 1 && oldQty === 0) {
-
       createDonut();
 
       // Add 'selected indicator (✓)' to the color bar
-      var selectedIndicator = document.createElement('img');
+      selectedIndicator = document.createElement('img');
       selectedIndicator.src = dir + "modules/c1b291cb852/checked-sign.png";
       selectedIndicator.classList.add('c1-checked-sign');
       item.appendChild(selectedIndicator);
+    } else if (quantity === 0 && chosenItem) {
+      chosenList.removeChild(chosenItem);
+      chosenItem = null;
+
+      item.removeChild(selectedIndicator);
     }
 
     qtyDonut.textContent = quantity;
@@ -28,7 +34,7 @@ var Color = function(n, c) {
   };
 
   var createDonut = function() {
-    var chosenItem = document.createElement('li');
+    chosenItem = document.createElement('li');
     chosenItem.id = name;
     chosenList.appendChild(chosenItem);
 
@@ -105,30 +111,10 @@ var Color = function(n, c) {
       updateQuantity(1);
     });
     decrementButton.addEventListener('click', function() {
-      if (quantity === 0){
-        return;
-      } else {
-        quantity -= 1;
-        qty.value = quantity;
-        var amount = document.getElementById(name+'1');
-        amount.getElementsByClassName('c1-qtyDonut')[0].innerHTML = quantity;
-        //amount.innerHTML = quantity;
-        removeFromCart();
-        if (quantity === 0) {
-          var picked = item.getElementsByClassName('c1-checked-sign')[0];
-          item.removeChild(picked);
-        }
-      }
-      setChosenListTitle();
+      updateQuantity(-1);
     });
-
-    var removeFromCart = function() {
-      if (quantity === 0) {
-        chosenList.removeChild(document.getElementById(name));
-      }
-    };
-
   };
+
   var setChosenListTitle = function() {
     var chosenList = document.getElementById('c1-chosen-list');
     if (chosenList.children.length === 0) {
