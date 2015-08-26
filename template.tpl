@@ -6,7 +6,7 @@
     </ul>
   </div>
   <div class='c1-chosen-colors'>
-    <h4>Your Cans:</h4>
+    <h4 id='c1-chosen-list-title'></h4>
     <ul id='c1-chosen-list'>
     </ul>
   </div>
@@ -74,6 +74,7 @@ var Color = function(name, color) {
       item.appendChild(picked);
       picked.classList.add('c1-checked-sign');
     }
+    setChosenListTitle();
     //amount.innerHTML = quantity;
   });
   decrementButton.addEventListener('click', function() {
@@ -91,6 +92,7 @@ var Color = function(name, color) {
         item.removeChild(picked);
       }
     }
+    setChosenListTitle();
   })
 
   var drawInCart = function() {
@@ -126,9 +128,21 @@ var Color = function(name, color) {
   }
 
 }
+var setChosenListTitle = function() {
+	var chosenList = document.getElementById('c1-chosen-list');
+	console.log('aa', chosenList.children.length);
+	if (chosenList.children.length === 0) {
+		console.log('elo');
+		document.getElementById('c1-chosen-list-title').innerHTML = 'Choose colors';
+	} else {
+		document.getElementById('c1-chosen-list-title').innerHTML = 'Your colors:';
+	}	
+};
 
 var el = document.getElementById('c1-chosen-list');
 var sortable = Sortable.create(el);
+
+setChosenListTitle();
 
 {/literal}
 
