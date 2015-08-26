@@ -6,7 +6,7 @@
     </ul>
   </div>
   <div class='c1-chosen-colors'>
-    <h4>Your Cans:</h4>
+    <h4 id='c1-chosen-list-title'></h4>
     <ul id='c1-chosen-list'>
     </ul>
   </div>
@@ -17,10 +17,12 @@
 var dir = '{$base_dir}';
 {literal}
 
-var inputUpdate = function(evt){
+var inputUpdate = function(evt) {
   var value = evt.target.value;
   var id = evt.target.parentNode.parentNode.id;
-  console.log(value, id);
+  if  (evt.keyCode === 13) {
+    alert(parseInt(value, 10));
+  }
 };
 
 var Color = function(name, color) {
@@ -28,10 +30,10 @@ var Color = function(name, color) {
   var item = document.createElement('li');
   list.appendChild(item);
   if (color.charAt(0) === '#') {
- 	item.style.backgroundColor = color;
+  item.style.backgroundColor = color;
   } else {
-  	item.style.backgroundImage = 'url('+ dir+color+')';
-  	item.style.backgroundSize = 'cover';
+    item.style.backgroundImage = 'url('+ dir+color+')';
+    item.style.backgroundSize = 'cover';
   }
   item.id = 'c1-' + name + '1';
 
@@ -48,7 +50,7 @@ var Color = function(name, color) {
   var qty = document.createElement('input');
   quantityPanel.appendChild(qty);
   qty.classList.add('c1-qty');
-  qty.addEventListener('blur', inputUpdate);
+  qty.addEventListener('keydown', inputUpdate);
   var decrementButton = document.createElement('div');
   quantityPanel.appendChild(decrementButton);
   decrementButton.classList.add('c1-button');
@@ -74,6 +76,7 @@ var Color = function(name, color) {
       item.appendChild(picked);
       picked.classList.add('c1-checked-sign');
     }
+    setChosenListTitle();
     //amount.innerHTML = quantity;
   });
   decrementButton.addEventListener('click', function() {
@@ -91,6 +94,7 @@ var Color = function(name, color) {
         item.removeChild(picked);
       }
     }
+    setChosenListTitle();
   })
 
   var drawInCart = function() {
@@ -102,12 +106,12 @@ var Color = function(name, color) {
       chosenItem.appendChild(item);
       item.id = name + '1';
       item.classList.add('c1-donat-div');
-	  if (color.charAt(0) === '#') {
-	 	item.style.backgroundColor = color;
-	  } else {
-	  	item.style.backgroundImage = 'url('+ dir+color+')';
-	  	item.style.backgroundSize = 'cover';
-	  }
+  	  if (color.charAt(0) === '#') {
+  	 	item.style.backgroundColor = color;
+  	  } else {
+  	  	item.style.backgroundImage = 'url('+ dir+color+')';
+  	  	item.style.backgroundSize = 'cover';
+  	  }
       // item.style.backgroundColor = color;
       var donat = document.createElement('img');
       item.appendChild(donat);
@@ -126,11 +130,22 @@ var Color = function(name, color) {
   }
 
 }
+var setChosenListTitle = function() {
+  var chosenList = document.getElementById('c1-chosen-list');
+  if (chosenList.children.length === 0) {
+    document.getElementById('c1-chosen-list-title').innerHTML = 'Choose colors';
+  } else {
+    document.getElementById('c1-chosen-list-title').innerHTML = 'Your colors:';
+  }
+};
+
 
 var el = document.getElementById('c1-chosen-list');
 var sortable = Sortable.create(el, {
   animation: 150
 });
+
+setChosenListTitle();
 
 {/literal}
 
