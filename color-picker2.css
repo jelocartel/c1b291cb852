@@ -85,9 +85,12 @@ body {
 .c1-checked-sign {
   display: inline-block;
   float: right;
-  height: 25px;
-  margin-right: 20px;
+  height: 20px;
+  /*margin-right: 20px;*/
   margin-top: 3px;
+}
+.c1-available-colors li:hover .c1-checked-sign {
+  display: none;
 }
 .c1-chosen-colors h4 {
   margin: 0;
@@ -113,7 +116,7 @@ body {
 }
 .c1-chosen-colors li {
   display: inline-block;
-  width: 25%;
+  width: 33%;
   list-style: none;
   text-decoration: none;
   box-sizing: border-box;

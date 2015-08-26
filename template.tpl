@@ -22,7 +22,9 @@ var Color = function(name, color) {
   var item = document.createElement('li');
   list.appendChild(item);
   item.style.backgroundColor = color;
-  // item.id = color;
+  item.id = 'c1-' + name + '1';
+
+  var quantity = 0;
 
   var quantityPanel = document.createElement('div');
   item.appendChild(quantityPanel);
@@ -35,6 +37,9 @@ var Color = function(name, color) {
   var qty = document.createElement('input');
   quantityPanel.appendChild(qty);
   qty.classList.add('c1-qty');
+  // if (qty.value !== null) {
+  // 	quantity = qty.value;
+  // }
   var decrementButton = document.createElement('div');
   quantityPanel.appendChild(decrementButton);
   decrementButton.classList.add('c1-button');
@@ -47,13 +52,12 @@ var Color = function(name, color) {
 
   var chosenList = document.getElementById('c1-chosen-list');
 
-  var quantity = 0;
   qty.value = quantity;
   incrementButton.addEventListener('click', function() {
     quantity += 1;
     qty.value = quantity;
     drawInCart();
-    var amount = document.getElementById('c1-'+name+'1');
+    var amount = document.getElementById(name + '1');
     amount.getElementsByClassName('c1-qtyDonat')[0].innerHTML = quantity;
     if (quantity === 1 ){
       var picked = document.createElement('img');
@@ -90,7 +94,6 @@ var Color = function(name, color) {
       item.id = name + '1';
       item.classList.add('c1-donat-div');
       item.style.backgroundColor = color;
-      // item.style.backgroundImage = '{$base_dir}modules/c1b291cb852/donat.png';
       var donat = document.createElement('img');
       item.appendChild(donat);
       donat.src = dir + "modules/c1b291cb852/donat.png";
