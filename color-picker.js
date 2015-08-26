@@ -13,6 +13,7 @@ var Color = function(n, c) {
     oldQty = quantity;
     quantityPanel.value = quantity = (quantity+deltaQty);
     if (quantity === 1 && oldQty === 0) {
+
       createDonut();
 
       // Add 'selected indicator (✓)' to the color bar
@@ -28,12 +29,14 @@ var Color = function(n, c) {
 
   var createDonut = function() {
     var chosenItem = document.createElement('li');
-    chosenList.appendChild(chosenItem);
     chosenItem.id = name;
+    chosenList.appendChild(chosenItem);
+
     var  item = document.createElement('div');
-    chosenItem.appendChild(item);
     item.id = name + '1';
     item.classList.add('c1-donut-div');
+    chosenItem.appendChild(item);
+
     if (color.charAt(0) === '#') {
       item.style.backgroundColor = color;
     } else {
@@ -47,9 +50,9 @@ var Color = function(n, c) {
     item.appendChild(donut);
 
     qtyDonut = document.createElement('div');
-    item.appendChild(qtyDonut);
     qtyDonut.classList.add('c1-qtyDonut');
     qtyDonut.innerHTML = quantity;
+    item.appendChild(qtyDonut);
   };
 
   var inputUpdate = function(evt) {
