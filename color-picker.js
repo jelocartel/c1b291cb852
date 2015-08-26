@@ -1,5 +1,6 @@
 var Color = (function() {
   var name;
+  var color;
   var oldQty = 0;
   var quantity = 0;
   var list = document.getElementById('c1-color-list');
@@ -22,6 +23,33 @@ var Color = (function() {
     setChosenListTitle();
   };
 
+  var drawInCart = function() {
+    if (quantity === 1) {
+      var chosenItem = document.createElement('li');
+      chosenList.appendChild(chosenItem);
+      chosenItem.id = name;
+      var  item = document.createElement('div');
+      chosenItem.appendChild(item);
+      item.id = name + '1';
+      item.classList.add('c1-donat-div');
+      if (color.charAt(0) === '#') {
+       item.style.backgroundColor = color;
+      } else {
+        item.style.backgroundImage = 'url('+ dir+color+')';
+        item.style.backgroundSize = 'cover';
+      }
+      // item.style.backgroundColor = color;
+      var donat = document.createElement('img');
+      item.appendChild(donat);
+      donat.src = dir + "modules/c1b291cb852/donat.png";
+      donat.classList.add('c1-donat');
+      var qtyDonat = document.createElement('div');
+      item.appendChild(qtyDonat);
+      qtyDonat.classList.add('c1-qtyDonat');
+      qtyDonat.innerHTML = quantity;
+    }
+  };
+
   var inputUpdate = function(evt) {
     var value = evt.target.value;
     var id = evt.target.parentNode.parentNode.id;
@@ -30,8 +58,9 @@ var Color = (function() {
     }
   };
 
-  var create = function(colorName, color) {
+  var create = function(colorName, colorValue) {
     name = colorName;
+    color = colorValue;
     item = document.createElement('li');
     item.id = 'c1-' + name + '1';
     if (color.charAt(0) === '#') {
@@ -88,32 +117,6 @@ var Color = (function() {
       setChosenListTitle();
     });
 
-    var drawInCart = function() {
-      if (quantity === 1) {
-        var chosenItem = document.createElement('li');
-        chosenList.appendChild(chosenItem);
-        chosenItem.id = name;
-        var  item = document.createElement('div');
-        chosenItem.appendChild(item);
-        item.id = name + '1';
-        item.classList.add('c1-donat-div');
-    	  if (color.charAt(0) === '#') {
-    	 	item.style.backgroundColor = color;
-    	  } else {
-    	  	item.style.backgroundImage = 'url('+ dir+color+')';
-    	  	item.style.backgroundSize = 'cover';
-    	  }
-        // item.style.backgroundColor = color;
-        var donat = document.createElement('img');
-        item.appendChild(donat);
-        donat.src = dir + "modules/c1b291cb852/donat.png";
-        donat.classList.add('c1-donat');
-        var qtyDonat = document.createElement('div');
-        item.appendChild(qtyDonat);
-        qtyDonat.classList.add('c1-qtyDonat');
-        qtyDonat.innerHTML = quantity;
-      }
-    };
     var removeFromCart = function() {
       if (quantity === 0) {
         chosenList.removeChild(document.getElementById(name));
