@@ -1,12 +1,25 @@
 var Color = (function() {
+  var name;
   var oldQty = 0;
   var quantity = 0;
   var list = document.getElementById('c1-color-list');
   var chosenList = document.getElementById('c1-chosen-list');
   var item;
+  var quantityPanel;
 
-  var updateQuantity = function(newQty){
-
+  var updateQuantity = function(deltaQty){
+    oldQty = quantity;
+    quantityPanel.value = quantity = (quantity+deltaQty);
+    drawInCart();
+    var amount = document.getElementById(name + '1');
+    amount.getElementsByClassName('c1-qtyDonat')[0].textContent = quantity;
+    if (quantity === 1 && oldQty === 0){
+      var picked = document.createElement('img');
+      picked.src = dir + "modules/c1b291cb852/checked-sign.png";
+      item.appendChild(picked);
+      picked.classList.add('c1-checked-sign');
+    }
+    setChosenListTitle();
   };
 
   var inputUpdate = function(evt) {
@@ -17,7 +30,8 @@ var Color = (function() {
     }
   };
 
-  var create = function(name, color) {
+  var create = function(colorName, color) {
+    name = colorName;
     item = document.createElement('li');
     item.id = 'c1-' + name + '1';
     if (color.charAt(0) === '#') {
@@ -28,7 +42,7 @@ var Color = (function() {
     }
     list.appendChild(item);
 
-    var quantityPanel = document.createElement('div');
+    quantityPanel = document.createElement('div');
     quantityPanel.classList.add('c1-qty-panel');
     item.appendChild(quantityPanel);
 
@@ -42,7 +56,7 @@ var Color = (function() {
     quantityInput.addEventListener('keydown', inputUpdate);
     quantityPanel.appendChild(quantityInput);
     quantityPanel.value = quantity;
-    
+
     var decrementButton = document.createElement('div');
     quantityPanel.appendChild(decrementButton);
     decrementButton.textContent = '-';
@@ -54,19 +68,7 @@ var Color = (function() {
     item.appendChild(itemName);
 
     incrementButton.addEventListener('click', function() {
-      quantity += 1;
-      qty.value = quantity;
-      drawInCart();
-      var amount = document.getElementById(name + '1');
-      amount.getElementsByClassName('c1-qtyDonat')[0].innerHTML = quantity;
-      if (quantity === 1 ){
-        var picked = document.createElement('img');
-        picked.src = dir + "modules/c1b291cb852/checked-sign.png";
-        item.appendChild(picked);
-        picked.classList.add('c1-checked-sign');
-      }
-      setChosenListTitle();
-      //amount.innerHTML = quantity;
+      updateQuantity(1);
     });
     decrementButton.addEventListener('click', function() {
       if (quantity === 0){
