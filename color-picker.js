@@ -1,4 +1,14 @@
-var Color = (function(){
+var Color = (function() {
+  var oldQty = 0;
+  var quantity = 0;
+  var list = document.getElementById('c1-color-list');
+  var chosenList = document.getElementById('c1-chosen-list');
+  var item;
+
+  var updateQuantity = function(newQty){
+
+  };
+
   var inputUpdate = function(evt) {
     var value = evt.target.value;
     var id = evt.target.parentNode.parentNode.id;
@@ -7,45 +17,42 @@ var Color = (function(){
     }
   };
 
-  var Color = function(name, color) {
-    var list = document.getElementById('c1-color-list');
-    var item = document.createElement('li');
-    list.appendChild(item);
-    if (color.charAt(0) === '#') {
-    item.style.backgroundColor = color;
-    } else {
-      item.style.backgroundImage = 'url('+ dir+color+')';
-      item.style.backgroundSize = 'cover';
-    }
+  var create = function(name, color) {
+    item = document.createElement('li');
     item.id = 'c1-' + name + '1';
-
-    var quantity = 0;
+    if (color.charAt(0) === '#') {
+      item.style.backgroundColor = color;
+    } else {
+      item.style.backgroundImage = 'url(' + dir + color + ')';
+      item.style.backgroundSize = 'cover'; //XXX
+    }
+    list.appendChild(item);
 
     var quantityPanel = document.createElement('div');
-    item.appendChild(quantityPanel);
     quantityPanel.classList.add('c1-qty-panel');
+    item.appendChild(quantityPanel);
 
     var incrementButton = document.createElement('div');
-    quantityPanel.appendChild(incrementButton);
     incrementButton.classList.add('c1-button');
-    incrementButton.innerHTML = '+';
-    var qty = document.createElement('input');
-    quantityPanel.appendChild(qty);
-    qty.classList.add('c1-qty');
-    qty.addEventListener('keydown', inputUpdate);
+    incrementButton.textContent = '+';
+    quantityPanel.appendChild(incrementButton);
+
+    var quantityInput = document.createElement('input');
+    quantityInput.classList.add('c1-qty');
+    quantityInput.addEventListener('keydown', inputUpdate);
+    quantityPanel.appendChild(quantityInput);
+    quantityPanel.value = quantity;
+    
     var decrementButton = document.createElement('div');
     quantityPanel.appendChild(decrementButton);
+    decrementButton.textContent = '-';
     decrementButton.classList.add('c1-button');
-    decrementButton.innerHTML = '-';
 
     var itemName = document.createElement('p');
-    item.appendChild(itemName);
     itemName.classList.add('c1-color-name');
-    itemName.innerHTML = name;
+    itemName.textContent = name;
+    item.appendChild(itemName);
 
-    var chosenList = document.getElementById('c1-chosen-list');
-
-    qty.value = quantity;
     incrementButton.addEventListener('click', function() {
       quantity += 1;
       qty.value = quantity;
@@ -129,5 +136,5 @@ var Color = (function(){
 
   setChosenListTitle();
 
-  return Color;
+  return create;
 })();
