@@ -29,29 +29,6 @@ class c1b291cb852 extends Module
     return true;
   }
 
-  public function getContent() {
-    global $smarty;
-
-    if(Tools::isSubmit('submit_text')) {
-
-      Configuration::updateValue(
-        $this->name.'_our_text',
-        Tools::getValue('our_text')
-      );
-
-    }
-
-    $smarty->assign('our_text',Configuration::get($this->name.'_our_text'));
-    $smarty->assign('uri', $_SERVER['REQUEST_URI']);
-
-    return $this->display(__FILE__, 'admin.tpl');
-  }
-
-  private function _generateForm() {
-
-    $textToShow=Configuration::get($this->name.'_text_to_show');
-  }
-
   public function hookDisplayFooterProduct() {
 
     global $smarty;
@@ -60,6 +37,11 @@ class c1b291cb852 extends Module
 
     $this_product = new Product($_GET['id_product']);
     $combinations = $this_product->getAttributeCombinations($cookie->id_lang);
+    for ($i = 0; $i < count($combinations); $i++) {
+      $attributeId = new Attribute($combinations[$i]['id_attribute']);
+      $combinations[$i]["color_value"] = $attributeId->color;
+    }
+
     $smarty->assign('colors', '$this_product->colors');
     $smarty->assign('our_text', $cookie->id_lang);
     $smarty->assign('combinations', $combinations);
