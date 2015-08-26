@@ -11,43 +11,41 @@ var Color = (function() {
   var updateQuantity = function(deltaQty){
     oldQty = quantity;
     quantityPanel.value = quantity = (quantity+deltaQty);
-    drawInCart();
+    if (quantity === 1 && oldQty === 0) {
+      createDonut();
+      var selectedIndicator = document.createElement('img');
+      selectedIndicator.src = dir + "modules/c1b291cb852/checked-sign.png";
+      selectedIndicator.classList.add('c1-checked-sign');
+      item.appendChild(selectedIndicator);
+    }
     var amount = document.getElementById(name + '1');
     amount.getElementsByClassName('c1-qtyDonat')[0].textContent = quantity;
-    if (quantity === 1 && oldQty === 0){
-      var picked = document.createElement('img');
-      picked.src = dir + "modules/c1b291cb852/checked-sign.png";
-      item.appendChild(picked);
-      picked.classList.add('c1-checked-sign');
-    }
     setChosenListTitle();
   };
 
-  var drawInCart = function() {
-    if (quantity === 1) {
-      var chosenItem = document.createElement('li');
-      chosenList.appendChild(chosenItem);
-      chosenItem.id = name;
-      var  item = document.createElement('div');
-      chosenItem.appendChild(item);
-      item.id = name + '1';
-      item.classList.add('c1-donat-div');
-      if (color.charAt(0) === '#') {
-       item.style.backgroundColor = color;
-      } else {
-        item.style.backgroundImage = 'url('+ dir+color+')';
-        item.style.backgroundSize = 'cover';
-      }
-      // item.style.backgroundColor = color;
-      var donat = document.createElement('img');
-      item.appendChild(donat);
-      donat.src = dir + "modules/c1b291cb852/donat.png";
-      donat.classList.add('c1-donat');
-      var qtyDonat = document.createElement('div');
-      item.appendChild(qtyDonat);
-      qtyDonat.classList.add('c1-qtyDonat');
-      qtyDonat.innerHTML = quantity;
+  var createDonut = function() {
+    var chosenItem = document.createElement('li');
+    chosenList.appendChild(chosenItem);
+    chosenItem.id = name;
+    var  item = document.createElement('div');
+    chosenItem.appendChild(item);
+    item.id = name + '1';
+    item.classList.add('c1-donat-div');
+    if (color.charAt(0) === '#') {
+     item.style.backgroundColor = color;
+    } else {
+      item.style.backgroundImage = 'url('+ dir+color+')';
+      item.style.backgroundSize = 'cover';
     }
+    // item.style.backgroundColor = color;
+    var donat = document.createElement('img');
+    item.appendChild(donat);
+    donat.src = dir + "modules/c1b291cb852/donat.png";
+    donat.classList.add('c1-donat');
+    var qtyDonat = document.createElement('div');
+    item.appendChild(qtyDonat);
+    qtyDonat.classList.add('c1-qtyDonat');
+    qtyDonat.innerHTML = quantity;
   };
 
   var inputUpdate = function(evt) {
