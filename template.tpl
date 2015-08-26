@@ -21,7 +21,11 @@ var Color = function(name, color) {
   var list = document.getElementById('c1-color-list');
   var item = document.createElement('li');
   list.appendChild(item);
-  item.style.backgroundColor = color;
+  if (color.charAt(0) === '#') {
+ 	item.style.backgroundColor = color;
+  } else {
+  	item.style.backgroundImage = 'url('+color+')';
+  }
   item.id = 'c1-' + name + '1';
 
   var quantity = 0;
@@ -93,7 +97,12 @@ var Color = function(name, color) {
       chosenItem.appendChild(item);
       item.id = name + '1';
       item.classList.add('c1-donat-div');
-      item.style.backgroundColor = color;
+	  if (color.charAt(0) === '#') {
+	 	item.style.backgroundColor = color;
+	  } else {
+	  	item.style.backgroundImage = 'url('+color+')';
+	  }      
+      // item.style.backgroundColor = color;
       var donat = document.createElement('img');
       item.appendChild(donat);
       donat.src = dir + "modules/c1b291cb852/donat.png";
