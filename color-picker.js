@@ -33,7 +33,10 @@ var Color = function(n, c) {
 
     }
 
-    qtyDonut.textContent = quantity;
+    if (qtyDonut) {
+      qtyDonut.textContent = quantity;
+    }
+    
     setChosenListTitle();
   };
 
