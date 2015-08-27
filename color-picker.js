@@ -36,7 +36,7 @@ var Color = function(n, c) {
     if (qtyDonut) {
       qtyDonut.textContent = quantity;
     }
-    
+
     setChosenListTitle();
   };
 
@@ -85,7 +85,6 @@ var Color = function(n, c) {
       item.style.backgroundColor = color;
     } else {
       item.style.backgroundImage = 'url(' + dir + color + ')';
-      item.style.backgroundSize = 'cover'; //XXX
     }
     list.appendChild(item);
 

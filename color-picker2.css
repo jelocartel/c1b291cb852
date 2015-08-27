@@ -40,6 +40,7 @@ body {
   width: 100%;
   display: block;
   height: 30px;
+  background-size: cover;
 }
 .c1-qty-panel {
   display: none;
