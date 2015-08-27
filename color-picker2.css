@@ -135,6 +135,8 @@ body {
   width: 90%;
   color: #fff;
   text-align: center;
+  transform: scale(0);
+  transition: transform 0.2s;
 }
 
 .c1-donut {
@@ -144,6 +146,11 @@ body {
   margin: 0;
   display: block;
 }
+
+.c1-donut-div.active {
+  transform: scale(1);
+}
+
 .c1-qtyDonut {
   display: block;
   position: absolute;

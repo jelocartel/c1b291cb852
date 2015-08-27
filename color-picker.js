@@ -66,6 +66,10 @@ var Color = function(n, c) {
     qtyDonut.classList.add('c1-qtyDonut');
     qtyDonut.innerHTML = quantity;
     item.appendChild(qtyDonut);
+
+    setTimeout(function(){
+      item.classList.add('active');
+    }, 100);
   };
 
   var inputUpdate = function(evt) {
