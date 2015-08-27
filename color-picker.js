@@ -7,13 +7,15 @@ var Color = function(n, c) {
   var chosenList = document.getElementById('c1-chosen-list');
   var item;
   var quantityPanel;
+  var quantityInput;
   var qtyDonut;
   var selectedIndicator;
   var chosenItem;
 
   var updateQuantity = function(deltaQty){
     oldQty = quantity;
-    quantityPanel.value = quantity = Math.max((quantity+deltaQty), 0);
+    quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
+
     if (quantity === 1 && oldQty === 0) {
       createDonut();
 
@@ -22,14 +24,19 @@ var Color = function(n, c) {
       selectedIndicator.src = dir + "modules/c1b291cb852/checked-sign.png";
       selectedIndicator.classList.add('c1-checked-sign');
       item.appendChild(selectedIndicator);
+
     } else if (quantity === 0 && chosenItem) {
+
       chosenList.removeChild(chosenItem);
       chosenItem = null;
-
       item.removeChild(selectedIndicator);
+
     }
 
-    qtyDonut.textContent = quantity;
+    if (qtyDonut) {
+      qtyDonut.textContent = quantity;
+    }
+
     setChosenListTitle();
   };
 
@@ -78,7 +85,6 @@ var Color = function(n, c) {
       item.style.backgroundColor = color;
     } else {
       item.style.backgroundImage = 'url(' + dir + color + ')';
-      item.style.backgroundSize = 'cover'; //XXX
     }
     list.appendChild(item);
 
@@ -91,11 +97,11 @@ var Color = function(n, c) {
     incrementButton.textContent = '+';
     quantityPanel.appendChild(incrementButton);
 
-    var quantityInput = document.createElement('input');
+    quantityInput = document.createElement('input');
     quantityInput.classList.add('c1-qty');
     quantityInput.addEventListener('keydown', inputUpdate);
+    quantityInput.value = quantity;
     quantityPanel.appendChild(quantityInput);
-    quantityPanel.value = quantity;
 
     var decrementButton = document.createElement('div');
     quantityPanel.appendChild(decrementButton);
@@ -118,9 +124,9 @@ var Color = function(n, c) {
   var setChosenListTitle = function() {
     var chosenList = document.getElementById('c1-chosen-list');
     if (chosenList.children.length === 0) {
-      document.getElementById('c1-chosen-list-title').innerHTML = 'Choose colors';
+      document.getElementById('c1-chosen-list-title').textContent = 'Choose colors';
     } else {
-      document.getElementById('c1-chosen-list-title').innerHTML = 'Your colors:';
+      document.getElementById('c1-chosen-list-title').textContent = 'Your colors:';
     }
   };
 
