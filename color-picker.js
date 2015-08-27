@@ -13,6 +13,16 @@ var Color = function(n, c) {
   var qtyDonut;
   var selectedIndicator;
   var chosenItem;
+  var isMobile; 
+
+  var checkMobile = function() {
+    if (screen.width < 481) {
+      isMobile = true;
+    } else {
+      isMobile = false;
+    }
+    console.log(isMobile);
+  }
 
   var updateQuantity = function(deltaQty){
     oldQty = quantity;
@@ -158,6 +168,8 @@ var Color = function(n, c) {
   });
 
   setChosenListTitle();
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
 
   create(n, c);
 };
