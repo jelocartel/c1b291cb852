@@ -56,7 +56,7 @@ var Color = function(n, c) {
     }
 
     var donut = document.createElement('img');
-    donut.src = dir + "modules/c1b291cb852/donat.png";
+    donut.src = dir + "modules/c1b291cb852/donut.png";
     donut.classList.add('c1-donut');
     donutContainer.appendChild(donut);
 
