@@ -48,11 +48,11 @@ body {
 }
 .c1-color-name {
   display: inline-block;
-  margin: 0px 0px 0px 10px;
+  margin: 0px 0px 0px 9px;
   height: 30px;
   vertical-align: middle;
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 10px;
   color: #fff;
   padding-top: 6px;
   text-shadow: 1px 1px 1px #000;
@@ -81,9 +81,11 @@ body {
   cursor: pointer;
   padding-top: 5px;
 }
+.c1-available-colors li.donut-hover .c1-qty-panel,
 .c1-available-colors li:hover .c1-qty-panel {
   display: inline-block;
 }
+
 .c1-checked-sign {
   display: inline-block;
   float: right;
@@ -91,6 +93,7 @@ body {
   /*margin-right: 20px;*/
   margin-top: 3px;
 }
+.c1-available-colors li.donut-hover .c1-checked-sign,
 .c1-available-colors li:hover .c1-checked-sign {
   display: none;
 }
@@ -165,6 +168,7 @@ body {
   font-size: 10px;
   padding-top: 0px;
   box-sizing: border-box;
+  line-height: 12px;
 }
 
 .c1-qtyDonut.pulse {

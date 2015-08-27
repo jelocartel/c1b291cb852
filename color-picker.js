@@ -63,6 +63,13 @@ var Color = function(n, c) {
     donut.classList.add('c1-donut');
     donutContainer.appendChild(donut);
 
+    donut.addEventListener('mouseover', function(evt) {
+      document.getElementById('c1-' + evt.target.parentNode.id).classList.add('donut-hover');
+    });
+    donut.addEventListener('mouseout', function(evt) {
+      document.getElementById('c1-' + evt.target.parentNode.id).classList.remove('donut-hover');
+    });    
+
     qtyDonut = document.createElement('div');
     qtyDonut.classList.add('c1-qtyDonut');
     qtyDonut.innerHTML = quantity;
