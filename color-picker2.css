@@ -10,7 +10,7 @@ body {
 }
 .c1-available-colors {
   display: inline-block;
-  width: 75%;
+  width: 70%;
   box-sizing: border-box;
   border-right: dashed 2px #333;
   min-height: 500px;
@@ -19,7 +19,7 @@ body {
 }
 .c1-chosen-colors {
   display: inline-block;
-  width: 25%;
+  width: 30%;
   box-sizing: border-box;
   min-height: 500px;
   padding: 15px 20px;
@@ -135,6 +135,8 @@ body {
   width: 90%;
   color: #fff;
   text-align: center;
+  transform: scale(0);
+  transition: transform 0.2s;
 }
 
 .c1-donut {
@@ -144,6 +146,11 @@ body {
   margin: 0;
   display: block;
 }
+
+.c1-donut-div.active {
+  transform: scale(1);
+}
+
 .c1-qtyDonut {
   display: block;
   position: absolute;

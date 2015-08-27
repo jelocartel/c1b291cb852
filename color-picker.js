@@ -5,7 +5,9 @@ var Color = function(n, c) {
   var quantity = 0;
   var list = document.getElementById('c1-color-list');
   var chosenList = document.getElementById('c1-chosen-list');
-  var item;
+  var listTitle = document.getElementById('c1-chosen-list-title');
+  var donutContainer;
+  var colorBar;
   var quantityPanel;
   var quantityInput;
   var qtyDonut;
@@ -23,21 +25,16 @@ var Color = function(n, c) {
       selectedIndicator = document.createElement('img');
       selectedIndicator.src = dir + "modules/c1b291cb852/checked-sign.png";
       selectedIndicator.classList.add('c1-checked-sign');
-      item.appendChild(selectedIndicator);
+      colorBar.appendChild(selectedIndicator);
 
     } else if (quantity === 0 && chosenItem) {
-
-      chosenList.removeChild(chosenItem);
-      chosenItem = null;
-      item.removeChild(selectedIndicator);
-
+      donutContainer.addEventListener('transitionend', removeDonut);
+      donutContainer.classList.remove('active');
     }
 
     if (qtyDonut) {
       qtyDonut.textContent = quantity;
     }
-
-    setChosenListTitle();
   };
 
   var createDonut = function() {
@@ -45,27 +42,40 @@ var Color = function(n, c) {
     chosenItem.id = name;
     chosenList.appendChild(chosenItem);
 
-    var  item = document.createElement('div');
-    item.id = name + '1';
-    item.classList.add('c1-donut-div');
-    chosenItem.appendChild(item);
+    donutContainer = document.createElement('div');
+    donutContainer.id = name + '1';
+    donutContainer.classList.add('c1-donut-div');
+    chosenItem.appendChild(donutContainer);
 
     if (color.charAt(0) === '#') {
-      item.style.backgroundColor = color;
+      donutContainer.style.backgroundColor = color;
     } else {
-      item.style.backgroundImage = 'url('+ dir+color+')';
-      item.style.backgroundSize = 'cover';
+      donutContainer.style.backgroundImage = 'url('+ dir+color+')';
+      donutContainer.style.backgroundSize = 'cover';
     }
 
     var donut = document.createElement('img');
-    donut.src = dir + "modules/c1b291cb852/donat.png";
+    donut.src = dir + "modules/c1b291cb852/donut.png";
     donut.classList.add('c1-donut');
-    item.appendChild(donut);
+    donutContainer.appendChild(donut);
 
     qtyDonut = document.createElement('div');
     qtyDonut.classList.add('c1-qtyDonut');
     qtyDonut.innerHTML = quantity;
-    item.appendChild(qtyDonut);
+    donutContainer.appendChild(qtyDonut);
+
+    setTimeout(function(){
+      donutContainer.classList.add('active');
+      setChosenListTitle();
+    }, 100);
+  };
+
+  var removeDonut = function(){
+    chosenItem.removeEventListener('transitionend', removeDonut);
+    chosenList.removeChild(chosenItem);
+    chosenItem = null;
+    colorBar.removeChild(selectedIndicator);
+    setChosenListTitle();
   };
 
   var inputUpdate = function(evt) {
@@ -80,18 +90,18 @@ var Color = function(n, c) {
   var create = function(colorName, colorValue) {
     name = colorName;
     color = colorValue;
-    item = document.createElement('li');
-    item.id = 'c1-' + name + '1';
+    colorBar = document.createElement('li');
+    colorBar.id = 'c1-' + name + '1';
     if (color.charAt(0) === '#') {
-      item.style.backgroundColor = color;
+      colorBar.style.backgroundColor = color;
     } else {
-      item.style.backgroundImage = 'url(' + dir + color + ')';
+      colorBar.style.backgroundImage = 'url(' + dir + color + ')';
     }
-    list.appendChild(item);
+    list.appendChild(colorBar);
 
     quantityPanel = document.createElement('div');
     quantityPanel.classList.add('c1-qty-panel');
-    item.appendChild(quantityPanel);
+    colorBar.appendChild(quantityPanel);
 
     var incrementButton = document.createElement('div');
     incrementButton.classList.add('c1-button');
@@ -112,7 +122,7 @@ var Color = function(n, c) {
     var itemName = document.createElement('p');
     itemName.classList.add('c1-color-name');
     itemName.textContent = name;
-    item.appendChild(itemName);
+    colorBar.appendChild(itemName);
 
     incrementButton.addEventListener('click', function() {
       updateQuantity(1);
@@ -123,11 +133,10 @@ var Color = function(n, c) {
   };
 
   var setChosenListTitle = function() {
-    var chosenList = document.getElementById('c1-chosen-list');
     if (chosenList.children.length === 0) {
-      document.getElementById('c1-chosen-list-title').textContent = 'Choose colors';
+      listTitle.textContent = 'Choose colors';
     } else {
-      document.getElementById('c1-chosen-list-title').textContent = 'Your colors:';
+      listTitle.textContent = 'Your colors:';
     }
   };
 
