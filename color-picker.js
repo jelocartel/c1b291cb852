@@ -16,7 +16,7 @@ var Color = function(n, c) {
     oldQty = quantity;
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
 
-    if (quantity === 1 && oldQty === 0) {
+    if (quantity !== 0 && oldQty === 0) {
       createDonut();
 
       // Add 'selected indicator (✓)' to the color bar
@@ -69,10 +69,11 @@ var Color = function(n, c) {
   };
 
   var inputUpdate = function(evt) {
-    var value = evt.target.value;
+    var value = parseInt(evt.target.value, 10);
     var id = evt.target.parentNode.parentNode.id;
     if  (evt.keyCode === 13) {
-      alert(parseInt(value, 10));
+      var delta = Number.isNaN(value) ? 0 : value;
+      updateQuantity(delta - quantity);
     }
   };
 
