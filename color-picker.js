@@ -5,6 +5,7 @@ var Color = function(n, c) {
   var quantity = 0;
   var list = document.getElementById('c1-color-list');
   var chosenList = document.getElementById('c1-chosen-list');
+  var listTitle = document.getElementById('c1-chosen-list-title');
   var donutContainer;
   var colorBar;
   var quantityPanel;
@@ -34,8 +35,6 @@ var Color = function(n, c) {
     if (qtyDonut) {
       qtyDonut.textContent = quantity;
     }
-
-    setChosenListTitle();
   };
 
   var createDonut = function() {
@@ -67,6 +66,7 @@ var Color = function(n, c) {
 
     setTimeout(function(){
       donutContainer.classList.add('active');
+      setChosenListTitle();
     }, 100);
   };
 
@@ -75,6 +75,7 @@ var Color = function(n, c) {
     chosenList.removeChild(chosenItem);
     chosenItem = null;
     colorBar.removeChild(selectedIndicator);
+    setChosenListTitle();
   };
 
   var inputUpdate = function(evt) {
@@ -132,11 +133,10 @@ var Color = function(n, c) {
   };
 
   var setChosenListTitle = function() {
-    var chosenList = document.getElementById('c1-chosen-list');
     if (chosenList.children.length === 0) {
-      document.getElementById('c1-chosen-list-title').textContent = 'Choose colors';
+      listTitle.textContent = 'Choose colors';
     } else {
-      document.getElementById('c1-chosen-list-title').textContent = 'Your colors:';
+      listTitle.textContent = 'Your colors:';
     }
   };
 
