@@ -33,7 +33,11 @@ var Color = function(n, c) {
     }
 
     if (qtyDonut) {
+      qtyDonut.classList.remove('pulse');
       qtyDonut.textContent = quantity;
+      setTimeout(function(){
+        qtyDonut.classList.add('pulse');
+      }, 100);
     }
   };
 
