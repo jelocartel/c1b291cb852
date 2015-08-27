@@ -86,6 +86,7 @@ body {
   display: inline-block;
 }
 
+
 .c1-checked-sign {
   display: inline-block;
   float: right;
@@ -148,6 +149,9 @@ body {
   height: auto;
   margin: 0;
   display: block;
+}
+.c1-donut:hover {
+  cursor: move;
 }
 
 .c1-donut-div.active {
