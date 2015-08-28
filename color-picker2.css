@@ -225,3 +225,14 @@ body {
     transform: scale(1);
   }
 }
+
+#c1-trash-list {
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  height: auto;
+}
+
+#c1-trash-list li {
+  width: 100%;
+}
