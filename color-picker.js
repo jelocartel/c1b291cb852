@@ -15,6 +15,7 @@ var Color = function(n, c) {
   var chosenItem;
 
   var updateQuantity = function(deltaQty){
+    console.log('uc', quantity, deltaQty);
     oldQty = quantity;
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
 
@@ -151,10 +152,17 @@ var Color = function(n, c) {
     }
   };
 
+  var removeAll = function() {
+
+    // ALL THE CODE THAT SELECTS INPUT & UPDATS IT"S VALUE SHOULD GO HERE
+    console.log(this);
+    updateQuantity(-quantity);
+  }.bind(this);
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
     animation: 150,
-    group: "c1"
+    group: "c1",
+    onRemove: removeAll
   });
 
   Sortable.create(document.getElementById('c1-trash-list'), {
