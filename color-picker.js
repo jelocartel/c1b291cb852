@@ -25,6 +25,7 @@ var Color = function(n, c) {
   }
 
   var updateQuantity = function(deltaQty){
+    console.log('uc', quantity, deltaQty);
     oldQty = quantity;
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
 
@@ -78,7 +79,7 @@ var Color = function(n, c) {
     });
     donut.addEventListener('mouseout', function(evt) {
       document.getElementById('c1-' + evt.target.parentNode.id).classList.remove('donut-hover');
-    });    
+    });
 
     qtyDonut = document.createElement('div');
     qtyDonut.classList.add('c1-qtyDonut');
@@ -161,10 +162,23 @@ var Color = function(n, c) {
     }
   };
 
+  var removeAll = function() {
 
-  var el = document.getElementById('c1-chosen-list');
-  var sortable = Sortable.create(el, {
-    animation: 150
+    // ALL THE CODE THAT SELECTS INPUT & UPDATS IT"S VALUE SHOULD GO HERE
+    console.log(this);
+    updateQuantity(-quantity);
+  }.bind(this);
+
+  Sortable.create(document.getElementById('c1-chosen-list'), {
+    animation: 150,
+    group: "c1",
+    onRemove: removeAll
+  });
+
+  Sortable.create(document.getElementById('c1-trash-list'), {
+    animation: 150,
+    group: "c1",
+    filter: ".c1-li-title"
   });
 
   setChosenListTitle();
