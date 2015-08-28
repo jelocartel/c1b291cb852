@@ -13,7 +13,7 @@ var Color = function(n, c) {
   var qtyDonut;
   var selectedIndicator;
   var chosenItem;
-  var isMobile; 
+  var isMobile;
 
   var checkMobile = function() {
     if (screen.width < 481) {
@@ -162,12 +162,12 @@ var Color = function(n, c) {
     }
   };
 
-  var removeAll = function() {
-
+  var removeAll = function(evt) {
+    var item = evt.item; // <-- to jest dom node donuta
     // ALL THE CODE THAT SELECTS INPUT & UPDATS IT"S VALUE SHOULD GO HERE
     console.log(this);
     updateQuantity(-quantity);
-  }.bind(this);
+  }
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
     animation: 150,
