@@ -161,6 +161,21 @@ var Color = function(n, c) {
       listTitle.textContent = 'Your colors:';
     }
   };
+  var keyboardEvent = document.createEvent("KeyboardEvent");
+  var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? "initKeyboardEvent" : "initKeyEvent";
+
+  keyboardEvent[initMethod](
+                     "keydown", // event type : keydown, keyup, keypress
+                      true, // bubbles
+                      true, // cancelable
+                      window, // viewArg: should be window
+                      false, // ctrlKeyArg
+                      false, // altKeyArg
+                      false, // shiftKeyArg
+                      false, // metaKeyArg
+                      13, // keyCodeArg : unsigned long the virtual key code, else 0
+                      0 // charCodeArgs : unsigned long the Unicode character associated with the depressed key, else 0
+  );
 
   var removeAll = function(evt) {
     var item = evt.item; // <-- to jest dom node donuta
@@ -173,6 +188,8 @@ var Color = function(n, c) {
     var trashList = document.getElementById('c1-trash-list');
     trashList.removeChild(item);
     colorBar.classList.remove('donut-hover');
+    colorBar.getElementsByTagName('input')[0].focus();
+    colorBar.getElementsByTagName('input')[0].dispatchEvent(keyboardEvent);
   }
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
