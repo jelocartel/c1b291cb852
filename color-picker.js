@@ -1,5 +1,5 @@
 var isMobile;
-
+var colors = [];
 var checkMobile = function() {
   if (screen.width < 481) {
     isMobile = true;
@@ -9,6 +9,11 @@ var checkMobile = function() {
 };
 
 var Color = function(n, c) {
+  colors.push({
+    name: n,
+    color: c
+  });
+  
   var name;
   var color;
   var oldQty = 0;
