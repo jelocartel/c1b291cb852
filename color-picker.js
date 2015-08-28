@@ -13,6 +13,16 @@ var Color = function(n, c) {
   var qtyDonut;
   var selectedIndicator;
   var chosenItem;
+  var isMobile; 
+
+  var checkMobile = function() {
+    if (screen.width < 481) {
+      isMobile = true;
+    } else {
+      isMobile = false;
+    }
+    console.log(isMobile);
+  }
 
   var updateQuantity = function(deltaQty){
     console.log('uc', quantity, deltaQty);
@@ -172,6 +182,22 @@ var Color = function(n, c) {
   });
 
   setChosenListTitle();
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
 
   create(n, c);
 };
+
+var stickList = function() {
+  var windowTop = window.scrollY;
+  var chosenList = document.getElementsByClassName('c1-chosen-colors')[0];
+  var stickAnchor = document.getElementsByClassName('c1-main-container')[0];
+  var listTop = stickAnchor.offsetTop + 320; // I don't know why 320px but it's working
+  if (windowTop > listTop) {
+    chosenList.classList.add('sticky');
+  } else {
+    chosenList.classList.remove('sticky');
+  }
+}
+
+window.addEventListener('scroll', stickList);

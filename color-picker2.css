@@ -7,6 +7,7 @@ body {
   min-height: 500px;
   background-color: rgba(255, 255, 255, 0.4);
   margin-bottom: 20px;
+  overflow: auto;
 }
 .c1-available-colors {
   display: inline-block;
@@ -86,6 +87,7 @@ body {
   display: inline-block;
 }
 
+
 .c1-checked-sign {
   display: inline-block;
   float: right;
@@ -149,6 +151,9 @@ body {
   margin: 0;
   display: block;
 }
+.c1-donut:hover {
+  cursor: move;
+}
 
 .c1-donut-div.active {
   transform: scale(1);
@@ -201,6 +206,8 @@ body {
   .c1-chosen-colors li {
     width: 50%;
   }
+}
+@media (min-width: 481px) and (max-width: 767px) {
   .c1-available-colors li:hover .c1-color-name {
     display: none;
   }
@@ -236,3 +243,63 @@ body {
 #c1-trash-list .c1-li-title {
   width: 100%;
 }
+
+@media (max-width: 480px) {
+  .c1-available-colors {
+    width: 100%;
+    border: none;
+    margin-top: 62px;
+  }
+  .c1-available-colors ul {
+    column-count: 1;
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+  }
+  .c1-available-colors ul li {
+    margin-top: 20px;
+  }
+  .c1-chosen-colors {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    min-height: 70px !important;
+    padding: 0;
+    z-index: 999;
+  }
+  .c1-chosen-colors ul {
+    height: auto;
+  }
+  .c1-chosen-colors h4 {
+    padding: 0;
+  }
+  .c1-chosen-colors li {
+    width: 10%;
+  }
+  .c1-qty-panel {
+    display: inline-block;
+    width: 100%;
+
+  }
+  .c1-color-name {
+    margin-top: -95px;
+    left: 0;
+  }
+  .c1-button {
+    width: 33%;
+    background-color: transparent;
+    border: none;
+  }
+  .c1-qty {
+    width: 34%;
+    background-color: transparent;
+    border: none;
+  }
+  .c1-checked-sign {
+    display: none;
+  }
+  .c1-chosen-colors.sticky {
+    position: fixed !important;
+    top: 0;
+  }
+}
+>>>>>>> 0057d6c2243439e6751b7374e374ad4855f61608
