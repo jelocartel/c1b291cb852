@@ -172,6 +172,7 @@ var Color = function(n, c) {
     colorBar.removeChild(checkedSign);
     var trashList = document.getElementById('c1-trash-list');
     trashList.removeChild(item);
+    colorBar.classList.remove('donut-hover');
   }
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
