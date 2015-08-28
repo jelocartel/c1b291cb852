@@ -168,6 +168,10 @@ var Color = function(n, c) {
     console.log(item.id);
     var colorBar = document.getElementById('c1-' + item.id + '1');
     colorBar.getElementsByTagName('input')[0].value = 0;
+    var checkedSign = colorBar.getElementsByTagName('img')[0];
+    colorBar.removeChild(checkedSign);
+    var trashList = document.getElementById('c1-trash-list');
+    trashList.removeChild(item);
   }
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
