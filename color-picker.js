@@ -1,3 +1,13 @@
+var isMobile;
+
+var checkMobile = function() {
+  if (screen.width < 481) {
+    isMobile = true;
+  } else {
+    isMobile = false;
+  }
+};
+
 var Color = function(n, c) {
   var name;
   var color;
@@ -13,19 +23,8 @@ var Color = function(n, c) {
   var qtyDonut;
   var selectedIndicator;
   var chosenItem;
-  var isMobile;
-
-  var checkMobile = function() {
-    if (screen.width < 481) {
-      isMobile = true;
-    } else {
-      isMobile = false;
-    }
-    console.log(isMobile);
-  };
 
   var updateQuantity = function(deltaQty){
-    // console.log('uc', quantity, deltaQty);
     oldQty = quantity;
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
 
@@ -166,20 +165,13 @@ var Color = function(n, c) {
       listTitle.textContent = 'Your colors:';
     }
   };
-  var keyboardEvent = document.createEvent("KeyboardEvent");
-  var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? "initKeyboardEvent" : "initKeyEvent";
 
+  // Simulate enter input
+  var keyboardEvent = document.createEvent("KeyboardEvent");
+  var initMethod = (typeof keyboardEvent.initKeyboardEvent !== 'undefined') ?
+                    "initKeyboardEvent" : "initKeyEvent";
   keyboardEvent[initMethod](
-                     "keydown", // event type : keydown, keyup, keypress
-                      true, // bubbles
-                      true, // cancelable
-                      window, // viewArg: should be window
-                      false, // ctrlKeyArg
-                      false, // altKeyArg
-                      false, // shiftKeyArg
-                      false, // metaKeyArg
-                      13, // keyCodeArg : unsigned long the virtual key code, else 0
-                      0 // charCodeArgs : unsigned long the Unicode character associated with the depressed key, else 0
+    "keydown", true, true, window, false, false, false, false, 13, 0
   );
 
   var removeAll = function(evt) {
@@ -211,16 +203,18 @@ var Color = function(n, c) {
   create(n, c);
 };
 
-var stickList = function() {
-  var windowTop = window.scrollY;
-  var chosenList = document.getElementsByClassName('c1-chosen-colors')[0];
-  var stickAnchor = document.getElementsByClassName('c1-main-container')[0];
-  var listTop = stickAnchor.offsetTop + 320; // I don't know why 320px but it's working
-  if (windowTop > listTop) {
-    chosenList.classList.add('sticky');
-  } else {
-    chosenList.classList.remove('sticky');
-  }
-};
+(function(){
+  var stickList = function() {
+    var windowTop = window.scrollY;
+    var chosenList = document.getElementsByClassName('c1-chosen-colors')[0];
+    var stickAnchor = document.getElementsByClassName('c1-main-container')[0];
+    var listTop = stickAnchor.offsetTop + 320; // I don't know why 320px but it's working
+    if (windowTop > listTop) {
+      chosenList.classList.add('sticky');
+    } else {
+      chosenList.classList.remove('sticky');
+    }
+  };
 
-window.addEventListener('scroll', stickList);
+  window.addEventListener('scroll', stickList);  
+})();
