@@ -1,9 +1,10 @@
-var colorSpectrum = (function(){
+var colorSpectrum = function(){
   var canvas = document.createElement('canvas');
   var ctx = canvas.getContext('2d');
   canvas.width = 60;
   canvas.id = 'spectrum';
-  
+
+  console.log('spectrum');
   document.body.appendChild(canvas);
 
   var colorsInScroll = 20;
@@ -29,7 +30,7 @@ var colorSpectrum = (function(){
     localColors.forEach(function(color, index) {
       var posX = 30;
       var tempSize = (canvas.height/localColors.length);
-      ctx.fillStyle = color;
+      ctx.fillStyle = color.color;
       ctx.fillRect(posX, pos, 100, tempSize);
       pos += tempSize;
     });
@@ -48,7 +49,7 @@ var colorSpectrum = (function(){
     var inx = Math.round(touchPosition/(canvas.height/localColors.length))-1;
     draw(inx);
     ctx.fillStyle = localColors[inx];
-    var target = document.getElementById(colors[inx*toSkip]);
+    var target = document.getElementById('c1-' + colors[inx*toSkip].name + '1');
     if (target) {
       target.scrollIntoView();
     }
@@ -62,4 +63,4 @@ var colorSpectrum = (function(){
 
   draw();
   window.onresize = draw;
-});
+};
