@@ -10,7 +10,7 @@
     <ul id='c1-chosen-list'>
     </ul>
     <ul id='c1-trash-list'>
-      <li>drag here to remove from cart</li>
+      <li class="c1-li-title">drag here to remove from cart</li>
     </ul>
   </div>
   <br style='clear: both'>
