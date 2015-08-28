@@ -68,7 +68,7 @@ var Color = function(n, c) {
     });
     donut.addEventListener('mouseout', function(evt) {
       document.getElementById('c1-' + evt.target.parentNode.id).classList.remove('donut-hover');
-    });    
+    });
 
     qtyDonut = document.createElement('div');
     qtyDonut.classList.add('c1-qtyDonut');
@@ -152,9 +152,14 @@ var Color = function(n, c) {
   };
 
 
-  var el = document.getElementById('c1-chosen-list');
-  var sortable = Sortable.create(el, {
-    animation: 150
+  Sortable.create(document.getElementById('c1-chosen-list'), {
+    animation: 150,
+    group: "c1"
+  });
+
+  Sortable.create(document.getElementById('c1-trash-list'), {
+    animation: 150,
+    group: "c1"
   });
 
   setChosenListTitle();

@@ -233,6 +233,6 @@ body {
   height: auto;
 }
 
-#c1-trash-list li {
+#c1-trash-list .c1-li-title {
   width: 100%;
 }
