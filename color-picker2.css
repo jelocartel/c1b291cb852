@@ -302,3 +302,10 @@ body {
     top: 0;
   }
 }
+
+canvas#spectrum {
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: transform 0.3s;
+}
