@@ -303,9 +303,13 @@ body {
   }
 }
 
-canvas#spectrum {
+canvas#c1-spectrum {
   position: fixed;
   top: 0;
   right: 0;
   transition: transform 0.3s;
+}
+
+canvas#c1-spectrum.c1-hidden {
+  transform: translateX(20px);
 }

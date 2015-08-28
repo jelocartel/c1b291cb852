@@ -2,12 +2,12 @@ var colorSpectrum = function(){
   var canvas = document.createElement('canvas');
   var ctx = canvas.getContext('2d');
   canvas.width = 60;
-  canvas.id = 'spectrum';
-
-  console.log('spectrum');
+  canvas.id = 'c1-spectrum';
+  canvas.classList.add('c1-hidden');
+  
   document.body.appendChild(canvas);
 
-  var colorsInScroll = 20;
+  var colorsInScroll = 30;
   var toSkip = Math.round(colors.length/colorsInScroll);
   var localColors = [];
   if (toSkip > 0) {
@@ -43,7 +43,7 @@ var colorSpectrum = function(){
 
   canvas.addEventListener('touchmove', function(e){
     e.preventDefault();
-    canvas.classList.remove('hidden');
+    canvas.classList.remove('c1-hidden');
     margin = 0;
     var touchPosition = e.touches[0].clientY;
     var inx = Math.round(touchPosition/(canvas.height/localColors.length))-1;
@@ -57,7 +57,7 @@ var colorSpectrum = function(){
   });
 
   canvas.addEventListener('touchend', function(){
-    canvas.classList.add('hidden');
+    canvas.classList.add('c1-hidden');
     draw();
   });
 
