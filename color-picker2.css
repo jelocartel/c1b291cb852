@@ -308,6 +308,7 @@ canvas#c1-spectrum {
   top: 0;
   right: 0;
   transition: transform 0.3s;
+  z-index: 99999;
 }
 
 canvas#c1-spectrum.c1-hidden {
