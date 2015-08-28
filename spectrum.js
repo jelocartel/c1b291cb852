@@ -48,7 +48,7 @@ var colorSpectrum = function(){
     var touchPosition = e.touches[0].clientY;
     var inx = Math.round(touchPosition/(canvas.height/localColors.length))-1;
     draw(inx);
-    ctx.fillStyle = localColors[inx];
+    ctx.fillStyle = localColors[inx].color;
     var target = document.getElementById('c1-' + colors[inx*toSkip].name + '1');
     if (target) {
       target.scrollIntoView();
