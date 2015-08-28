@@ -159,7 +159,8 @@ var Color = function(n, c) {
 
   Sortable.create(document.getElementById('c1-trash-list'), {
     animation: 150,
-    group: "c1"
+    group: "c1",
+    filter: ".c1-li-title"
   });
 
   setChosenListTitle();
