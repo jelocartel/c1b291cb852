@@ -54,7 +54,7 @@ var colorSpectrum = function(){
 
   canvas.addEventListener('touchmove', function(e){
     e.preventDefault();
-    chosenList.style.display = 'none';
+    chosenList.classList.add('c1-hidden');
     canvas.classList.remove('c1-hidden');
     margin = 0;
     var touchPosition = e.touches[0].clientY;
@@ -79,9 +79,15 @@ var colorSpectrum = function(){
 
   });
 
+  var alignScreenPosition = function(){
+    chosenList.removeEventListener('transitionend', alignScreenPosition);
+    window.scrollBy(0, -50);
+  };
+
   canvas.addEventListener('touchend', function(){
     canvas.classList.add('c1-hidden');
-    chosenList.style.display = 'inline-block';
+    chosenList.addEventListener('transitionend', alignScreenPosition);
+    chosenList.classList.remove('c1-hidden');
     draw();
   });
 
