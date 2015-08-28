@@ -1,4 +1,5 @@
 var colorSpectrum = function(){
+  var chosenList = document.getElementsByClassName('c1-chosen-colors')[0];
   var canvas = document.createElement('canvas');
   var ctx = canvas.getContext('2d');
   canvas.width = 60;
@@ -32,11 +33,11 @@ var colorSpectrum = function(){
       var tempSize = (canvas.height/localColors.length);
       if (color.color.charAt(0) === '#') {
         ctx.fillStyle = color.color;
-        ctx.fillRect(posX, pos, 100, tempSize);
+        ctx.fillRect(posX, pos, 25, tempSize);
       } else {
         var image = new Image();
         image.src = dir + color.color;
-        ctx.rect(posX, pos, 100, tempSize);
+        ctx.rect(posX, pos,25, tempSize);
         ctx.fillStyle = ctx.createPattern(image, "no-repeat");
         ctx.fill();
       }
@@ -53,6 +54,7 @@ var colorSpectrum = function(){
 
   canvas.addEventListener('touchmove', function(e){
     e.preventDefault();
+    chosenList.style.display = 'none';
     canvas.classList.remove('c1-hidden');
     margin = 0;
     var touchPosition = e.touches[0].clientY;
@@ -79,6 +81,7 @@ var colorSpectrum = function(){
 
   canvas.addEventListener('touchend', function(){
     canvas.classList.add('c1-hidden');
+    chosenList.style.display = 'inline-block';
     draw();
   });
 
