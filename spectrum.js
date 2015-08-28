@@ -5,6 +5,7 @@ var colorSpectrum = function(){
   canvas.width = 60;
   canvas.id = 'c1-spectrum';
   canvas.classList.add('c1-hidden');
+  canvas.classList.add('c1-offscreen-hidden');
 
   document.body.appendChild(canvas);
 

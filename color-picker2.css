@@ -317,6 +317,11 @@ canvas#c1-spectrum.c1-hidden {
   opacity: 0.5
 }
 
+canvas#c1-spectrum.c1-offscreen-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .c1-chosen-colors.c1-hidden {
   transform: translateY(-100%);
 }
