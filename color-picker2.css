@@ -244,6 +244,15 @@ body {
   width: 100%;
 }
 
+abbr {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: block;
+  cursor: move !important;
+  border: none !important;
+}
+
 @media (max-width: 480px) {
   .c1-available-colors {
     width: 100%;
