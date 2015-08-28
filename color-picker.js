@@ -25,7 +25,7 @@ var Color = function(n, c) {
   }
 
   var updateQuantity = function(deltaQty){
-    console.log('uc', quantity, deltaQty);
+    // console.log('uc', quantity, deltaQty);
     oldQty = quantity;
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
 
@@ -165,8 +165,9 @@ var Color = function(n, c) {
   var removeAll = function(evt) {
     var item = evt.item; // <-- to jest dom node donuta
     // ALL THE CODE THAT SELECTS INPUT & UPDATS IT"S VALUE SHOULD GO HERE
-    console.log(this);
-    updateQuantity(-quantity);
+    console.log(item.id);
+    var colorBar = document.getElementById('c1-' + item.id + '1');
+    colorBar.getElementsByTagName('input')[0].value = 0;
   }
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
