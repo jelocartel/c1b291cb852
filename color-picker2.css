@@ -237,6 +237,7 @@ body {
   .c1-available-colors {
     width: 100%;
     border: none;
+    margin-top: 62px;
   }
   .c1-available-colors ul {
     column-count: 1;
@@ -248,8 +249,7 @@ body {
   }
   .c1-chosen-colors {
     width: 100%;
-    top: 0;
-    position: fixed;
+    position: absolute;
     left: 0;
     min-height: 70px !important;
     padding: 0;
@@ -285,5 +285,9 @@ body {
   }
   .c1-checked-sign {
     display: none;
+  }
+  .c1-chosen-colors.sticky {
+    position: fixed !important;
+    top: 0;
   }
 }
