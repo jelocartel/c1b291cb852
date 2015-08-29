@@ -97,9 +97,10 @@ var Color = function(n, c) {
     }, 100);
   };
 
-  var removeDonut = function(){
+  var removeDonut = function(evt){
+    //var transitionItem = evt.target;
     chosenItem.removeEventListener('transitionend', removeDonut);
-    chosenList.removeChild(chosenItem);
+    chosenItem.parentNode.removeChild(chosenItem);
     chosenItem = null;
     colorBar.removeChild(selectedIndicator);
     setChosenListTitle();
@@ -187,11 +188,8 @@ var Color = function(n, c) {
     // ALL THE CODE THAT SELECTS INPUT & UPDATS IT"S VALUE SHOULD GO HERE
     console.log(item.id);
     var colorBar = document.getElementById('c1-' + item.id + '1');
+    var colorBarInput = colorBar.getElementsByTagName('input')[0];
     colorBar.getElementsByTagName('input')[0].value = 0;
-    var checkedSign = colorBar.getElementsByTagName('img')[0];
-    colorBar.removeChild(checkedSign);
-    var trashList = document.getElementById('c1-trash-list');
-    trashList.removeChild(item);
     colorBar.classList.remove('donut-hover');
     colorBar.getElementsByTagName('input')[0].focus();
     colorBar.getElementsByTagName('input')[0].dispatchEvent(keyboardEvent);
