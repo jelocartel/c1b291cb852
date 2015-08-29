@@ -28,7 +28,7 @@ var colorSpectrum = function(){
     canvas.height = document.documentElement.clientHeight;
     pos = 0;
     localColors.forEach(function(color, index) {
-      var posX = 30;
+      var posX = 0;
       var tempSize = (canvas.height/localColors.length);
       if (color.color.charAt(0) === '#') {
         ctx.fillStyle = color.color;
@@ -73,7 +73,6 @@ var colorSpectrum = function(){
     var target = document.getElementById('c1-' + colors[inx*toSkip].name + '1');
     if (target) {
       target.scrollIntoView();
-      //window.scrollBy(0, -320);
     }
 
   });
