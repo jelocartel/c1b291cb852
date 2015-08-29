@@ -97,8 +97,7 @@ var Color = function(n, c) {
     }, 100);
   };
 
-  var removeDonut = function(evt){
-    //var transitionItem = evt.target;
+  var removeDonut = function() {
     chosenItem.removeEventListener('transitionend', removeDonut);
     chosenItem.parentNode.removeChild(chosenItem);
     chosenItem = null;
@@ -184,15 +183,13 @@ var Color = function(n, c) {
   );
 
   var removeAll = function(evt) {
-    var item = evt.item; // <-- to jest dom node donuta
-    // ALL THE CODE THAT SELECTS INPUT & UPDATS IT"S VALUE SHOULD GO HERE
-    console.log(item.id);
+    var item = evt.item;
     var colorBar = document.getElementById('c1-' + item.id + '1');
     var colorBarInput = colorBar.getElementsByTagName('input')[0];
-    colorBar.getElementsByTagName('input')[0].value = 0;
+    colorBarInput.focus();
+    colorBarInput.value = 0;
     colorBar.classList.remove('donut-hover');
-    colorBar.getElementsByTagName('input')[0].focus();
-    colorBar.getElementsByTagName('input')[0].dispatchEvent(keyboardEvent);
+    colorBarInput.dispatchEvent(keyboardEvent);
   };
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
