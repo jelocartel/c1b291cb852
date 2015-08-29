@@ -1,14 +1,11 @@
-var isMobile;
-
-var checkMobile = function() {
-  if (screen.width < 481) {
-    isMobile = true;
-  } else {
-    isMobile = false;
-  }
-};
+var colors = [];
 
 var Color = function(n, c) {
+  colors.push({
+    name: n,
+    color: c
+  });
+
   var name;
   var color;
   var oldQty = 0;
@@ -193,24 +190,42 @@ var Color = function(n, c) {
   });
 
   setChosenListTitle();
-  checkMobile();
-  window.addEventListener('resize', checkMobile);
 
   create(n, c);
 };
 
-(function(){
+window.onload = function(){
+  var isMobile;
+  var colors = [];
+  var checkMobile = function() {
+    if (screen.width < 481) {
+      isMobile = true;
+    } else {
+      isMobile = false;
+    }
+  };
+
   var stickList = function() {
+    var spectrum = document.getElementById('c1-spectrum');
     var windowTop = window.scrollY;
     var chosenList = document.getElementsByClassName('c1-chosen-colors')[0];
     var stickAnchor = document.getElementsByClassName('c1-main-container')[0];
     var listTop = stickAnchor.offsetTop + 320; // I don't know why 320px but it's working
     if (windowTop > listTop) {
       chosenList.classList.add('sticky');
+      spectrum.classList.remove('c1-offscreen-hidden');
     } else {
       chosenList.classList.remove('sticky');
+      spectrum.classList.add('c1-offscreen-hidden');
     }
   };
 
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+
+  if (isMobile) {
+    colorSpectrum();
+  }
+
   window.addEventListener('scroll', stickList);
-})();
+};
