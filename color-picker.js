@@ -22,7 +22,7 @@ var Color = function(n, c) {
       isMobile = false;
     }
     console.log(isMobile);
-  }
+  };
 
   var updateQuantity = function(deltaQty){
     // console.log('uc', quantity, deltaQty);
@@ -195,7 +195,7 @@ var Color = function(n, c) {
     colorBar.classList.remove('donut-hover');
     colorBar.getElementsByTagName('input')[0].focus();
     colorBar.getElementsByTagName('input')[0].dispatchEvent(keyboardEvent);
-  }
+  };
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
     animation: 150,
@@ -226,6 +226,6 @@ var stickList = function() {
   } else {
     chosenList.classList.remove('sticky');
   }
-}
+};
 
 window.addEventListener('scroll', stickList);
