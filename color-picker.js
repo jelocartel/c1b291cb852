@@ -61,11 +61,6 @@ var Color = function(n, c) {
     donutContainer.classList.add('c1-donut-div');
     chosenItem.appendChild(donutContainer);
 
-    descript = document.createElement('abbr');
-    donutContainer.appendChild(descript);
-    descript.title = name;
-    descript.classList.add('descript');
-
     if (color.charAt(0) === '#') {
       donutContainer.style.backgroundColor = color;
     } else {
@@ -77,11 +72,12 @@ var Color = function(n, c) {
     donut.src = dir + "modules/c1b291cb852/donut.png";
     donut.classList.add('c1-donut');
     donutContainer.appendChild(donut);
+    donut.title = name;
 
-    descript.addEventListener('mouseover', function(evt) {
+    donut.addEventListener('mouseover', function(evt) {
       document.getElementById('c1-' + evt.target.parentNode.id).classList.add('donut-hover');
     });
-    descript.addEventListener('mouseout', function(evt) {
+    donut.addEventListener('mouseout', function(evt) {
       document.getElementById('c1-' + evt.target.parentNode.id).classList.remove('donut-hover');
     });
 
@@ -216,5 +212,5 @@ var Color = function(n, c) {
     }
   };
 
-  window.addEventListener('scroll', stickList);  
+  window.addEventListener('scroll', stickList);
 })();
