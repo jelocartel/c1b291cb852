@@ -312,6 +312,6 @@ canvas#c1-spectrum {
 }
 
 canvas#c1-spectrum.c1-hidden {
-  transform: translateX(-50px);
+  transform: translateX(-20px);
   opacity: 0.5
 }
