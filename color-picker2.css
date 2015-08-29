@@ -299,6 +299,7 @@ body {
   }
   .c1-chosen-colors.sticky {
     position: fixed !important;
+    transition: transform 0.3s;
     top: 0;
   }
 }
@@ -314,4 +315,8 @@ canvas#c1-spectrum {
 canvas#c1-spectrum.c1-hidden {
   transform: translateX(-20px);
   opacity: 0.5
+}
+
+.c1-chosen-colors.c1-hidden {
+  transform: translateY(-100%);
 }
