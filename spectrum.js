@@ -58,13 +58,24 @@ var colorSpectrum = function(){
     var touchPosition = e.touches[0].clientY;
     var inx = Math.round(touchPosition/(canvas.height/localColors.length))-1;
     draw(inx);
-    ctx.fillStyle = localColors[inx].color;
+    var color = localColors[inx].color;
+    if (color.charAt(0) === '#') {
+      ctx.fillStyle = color;
+      ctx.fillRect(0, touchPosition - activeColorSize, activeColorSize, activeColorSize);
+    } else {
+      var image = new Image();
+      image.src = dir + color;
+      ctx.rect(0, touchPosition - activeColorSize, activeColorSize, activeColorSize);
+      ctx.fillStyle = ctx.createPattern(image, "no-repeat");
+      ctx.fill();
+    }
+
     var target = document.getElementById('c1-' + colors[inx*toSkip].name + '1');
     if (target) {
       target.scrollIntoView();
       //window.scrollBy(0, -320);
     }
-    ctx.fillRect(0, touchPosition - activeColorSize, activeColorSize, activeColorSize);
+
   });
 
   canvas.addEventListener('touchend', function(){
