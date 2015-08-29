@@ -4,7 +4,7 @@ var colorSpectrum = function(){
   canvas.width = 60;
   canvas.id = 'c1-spectrum';
   canvas.classList.add('c1-hidden');
-  
+
   document.body.appendChild(canvas);
 
   var colorsInScroll = 30;
@@ -30,8 +30,18 @@ var colorSpectrum = function(){
     localColors.forEach(function(color, index) {
       var posX = 30;
       var tempSize = (canvas.height/localColors.length);
-      ctx.fillStyle = color.color;
-      ctx.fillRect(posX, pos, 100, tempSize);
+      if (color.color.charAt(0) === '#') {
+        ctx.fillStyle = color.color;
+        ctx.fillRect(posX, pos, 100, tempSize);
+      } else {
+        var image = new Image();
+        image.src = dir + color.color;
+        ctx.rect(posX, pos, 100, tempSize);
+        ctx.fillStyle = ctx.createPattern(image, "no-repeat");
+        ctx.fill();
+      }
+
+
       pos += tempSize;
     });
   };
@@ -52,6 +62,7 @@ var colorSpectrum = function(){
     var target = document.getElementById('c1-' + colors[inx*toSkip].name + '1');
     if (target) {
       target.scrollIntoView();
+      //window.scrollBy(0, -320);
     }
     ctx.fillRect(0, touchPosition - activeColorSize, activeColorSize, activeColorSize);
   });
