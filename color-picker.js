@@ -199,6 +199,14 @@ var stickList = function() {
   } else {
     chosenList.classList.remove('sticky');
   }
+} 
+
+var setTrashIcon = function() { 
+  var trashListTitle = document.getElementsByClassName('c1-li-title')[0];
+  var trashListIcon = document.createElement('img');
+  trashListTitle.appendChild(trashListIcon);
+  trashListIcon.src = 'url(' + dir + "modules/c1b291cb852/trash.png)";
 }
+setTrashIcon();
 
 window.addEventListener('scroll', stickList);
