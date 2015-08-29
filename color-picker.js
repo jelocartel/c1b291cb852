@@ -1,19 +1,11 @@
-var isMobile;
 var colors = [];
-var checkMobile = function() {
-  if (screen.width < 481) {
-    isMobile = true;
-  } else {
-    isMobile = false;
-  }
-};
 
 var Color = function(n, c) {
   colors.push({
     name: n,
     color: c
   });
-  
+
   var name;
   var color;
   var oldQty = 0;
@@ -198,13 +190,21 @@ var Color = function(n, c) {
   });
 
   setChosenListTitle();
-  checkMobile();
-  window.addEventListener('resize', checkMobile);
 
   create(n, c);
 };
 
-(function(){
+window.onload = function(){
+  var isMobile;
+  var colors = [];
+  var checkMobile = function() {
+    if (screen.width < 481) {
+      isMobile = true;
+    } else {
+      isMobile = false;
+    }
+  };
+
   var stickList = function() {
     var windowTop = window.scrollY;
     var chosenList = document.getElementsByClassName('c1-chosen-colors')[0];
@@ -217,5 +217,12 @@ var Color = function(n, c) {
     }
   };
 
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+
+  if (isMobile) {
+    colorSpectrum();
+  }
+
   window.addEventListener('scroll', stickList);
-})();
+};
