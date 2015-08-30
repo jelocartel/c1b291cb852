@@ -197,11 +197,19 @@ var Color = function(n, c) {
 window.onload = function(){
   var isMobile;
   var colors = [];
+  var spectrum = document.getElementById('c1-spectrum');
   var checkMobile = function() {
+    spectrum = document.getElementById('c1-spectrum');
     if (screen.width < 481) {
       isMobile = true;
+      if (!spectrum) {
+        colorSpectrum();
+      }
     } else {
       isMobile = false;
+      if (spectrum) {
+        spectrum.parentNode.removeChild(spectrum);
+      }
     }
   };
 
@@ -213,19 +221,18 @@ window.onload = function(){
     var listTop = stickAnchor.offsetTop + 320; // I don't know why 320px but it's working
     if (windowTop > listTop) {
       chosenList.classList.add('sticky');
-      spectrum.classList.remove('c1-offscreen-hidden');
+      if (spectrum) {
+        spectrum.classList.remove('c1-offscreen-hidden');
+      }
     } else {
       chosenList.classList.remove('sticky');
-      spectrum.classList.add('c1-offscreen-hidden');
+      if (spectrum) {
+        spectrum.classList.add('c1-offscreen-hidden');
+      }
     }
   };
 
   checkMobile();
   window.addEventListener('resize', checkMobile);
-
-  if (isMobile) {
-    colorSpectrum();
-  }
-
   window.addEventListener('scroll', stickList);
 };
