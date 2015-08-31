@@ -20,9 +20,18 @@
 <script>
 
 var dir = '{$base_dir}';
+//qweqwe
+{foreach from=$combinations[0] key=id item=elo}
+  //{$id} - {$elo}
+{/foreach}1.63*1.23).toFixed(2)
+
 {foreach from=$combinations key=id item=combination}
   {if strpos($combination.group_name, "Color") !== false && $combination.quantity > 0}
-    new Color('{$combination.attribute_name}', '{$combination.color_value}');
+    new Color(
+      '{$combination.attribute_name}',
+      '{$combination.color_value}',
+      parseFloat({$combination.price}*1.23).toFixed(2)
+    );
   {/if}
 {/foreach}
 
