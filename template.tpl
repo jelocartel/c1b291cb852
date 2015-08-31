@@ -21,9 +21,9 @@
 
 var dir = '{$base_dir}';
 //qweqwe
-{foreach from=$combinations[0] key=id item=elo}
-  //{$id} - {$elo}
-{/foreach}1.63*1.23).toFixed(2)
+// {foreach from=$combinations[0] key=id item=elo}
+//   //{$id} - {$elo}
+// {/foreach}
 
 {foreach from=$combinations key=id item=combination}
   {if strpos($combination.group_name, "Color") !== false && $combination.quantity > 0}
