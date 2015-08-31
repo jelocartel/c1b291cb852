@@ -24,6 +24,7 @@
     dir: baseDir,
     product: {
 {/literal}
+      id: {$product->id},
       price: ({$product->price}*1.23).toFixed(2)
 {literal}
     }
