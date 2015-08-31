@@ -82,7 +82,8 @@ var colorSpectrum = function(){
 
   var alignScreenPosition = function(){
     chosenList.removeEventListener('transitionend', alignScreenPosition);
-    window.scrollBy(0, -50);
+    var chosenListHeight = chosenList.offsetHeight;
+    window.scrollBy(0, -chosenListHeight - 15);
   };
 
   canvas.addEventListener('touchend', function(){
