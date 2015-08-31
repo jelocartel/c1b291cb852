@@ -244,12 +244,17 @@ body {
 #c1-trash-list .c1-li-title {
   width: 100%;
 }
+#c1-trash-list .c1-li-title img {
+  display: block;
+  margin: auto;
+  height: 20px;
+}
 
 @media (max-width: 480px) {
   .c1-available-colors {
     width: 100%;
     border: none;
-    margin-top: 62px;
+    margin-top: 103px;
   }
   .c1-available-colors ul {
     column-count: 1;

@@ -232,6 +232,15 @@ window.onload = function(){
     }
   };
 
+  var setTrashIcon = function() {
+    console.log('trash');
+    var trashListTitle = document.getElementsByClassName('c1-li-title')[0];
+    var trashListIcon = document.createElement('img');
+    trashListTitle.appendChild(trashListIcon);
+    trashListIcon.src = dir + "modules/c1b291cb852/trash.png";
+  };
+  setTrashIcon();
+
   checkMobile();
   window.addEventListener('resize', checkMobile);
   window.addEventListener('scroll', stickList);
