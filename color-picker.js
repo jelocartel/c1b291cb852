@@ -130,7 +130,7 @@ var Color = function(n, c, p) {
       colorBar.appendChild(extraPriceDiv);
       extraPriceDiv.classList.add('extra-price');
       var totalPrice = (parseFloat(extraPrice) + parseFloat(C1.product.price)).toFixed(2);
-      extraPriceDiv.innerHTML = totalPrice; 
+      extraPriceDiv.innerHTML = totalPrice;
     }
 
     var incrementButton = document.createElement('div');
@@ -206,7 +206,6 @@ var Color = function(n, c, p) {
 };
 
 window.onload = function(){
-
   var isMobile;
   var colors = [];
   var spectrum = document.getElementById('c1-spectrum');
@@ -245,14 +244,31 @@ window.onload = function(){
   };
 
   var setTrashIcon = function() {
-    console.log('trash');
     var trashListTitle = document.getElementsByClassName('c1-li-title')[0];
     var trashListIcon = document.createElement('img');
     trashListTitle.appendChild(trashListIcon);
     trashListIcon.src = C1.dir + "modules/c1b291cb852/trash.png";
   };
-  setTrashIcon();
 
+  var removeBuyNowButtons = function(){
+    var priceButtons = document.getElementsByClassName('content_prices')[0];
+    priceButtons.parentNode.removeChild(priceButtons);
+    priceButtons = '';
+  };
+
+  // request structure
+  // index.php?rand=rand
+  // post data:
+  // controller: 'cart'
+  // add: 1 //?
+  // ajax: "true"
+  // qty: qty
+  // id_product: id
+  // token: toke
+  // ipa: combination id?
+
+  removeBuyNowButtons();
+  setTrashIcon();
   checkMobile();
   window.addEventListener('resize', checkMobile);
   window.addEventListener('scroll', stickList);
