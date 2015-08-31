@@ -16,6 +16,7 @@
   <br style='clear: both'>
 </div>
 <script src="{$base_dir}modules/c1b291cb852/color-picker.js"></script>
+<script src="{$base_dir}modules/c1b291cb852/spectrum.js"></script>
 <script>
 
 var dir = '{$base_dir}';

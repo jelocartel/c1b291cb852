@@ -1,4 +1,11 @@
+var colors = [];
+
 var Color = function(n, c) {
+  colors.push({
+    name: n,
+    color: c
+  });
+
   var name;
   var color;
   var oldQty = 0;
@@ -13,19 +20,8 @@ var Color = function(n, c) {
   var qtyDonut;
   var selectedIndicator;
   var chosenItem;
-  var isMobile;
-
-  var checkMobile = function() {
-    if (screen.width < 481) {
-      isMobile = true;
-    } else {
-      isMobile = false;
-    }
-    console.log(isMobile);
-  }
 
   var updateQuantity = function(deltaQty){
-    // console.log('uc', quantity, deltaQty);
     oldQty = quantity;
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
 
@@ -73,6 +69,7 @@ var Color = function(n, c) {
     donut.src = dir + "modules/c1b291cb852/donut.png";
     donut.classList.add('c1-donut');
     donutContainer.appendChild(donut);
+    donut.title = name;
 
     donut.addEventListener('mouseover', function(evt) {
       document.getElementById('c1-' + evt.target.parentNode.id).classList.add('donut-hover');
@@ -92,9 +89,9 @@ var Color = function(n, c) {
     }, 100);
   };
 
-  var removeDonut = function(){
+  var removeDonut = function() {
     chosenItem.removeEventListener('transitionend', removeDonut);
-    chosenList.removeChild(chosenItem);
+    chosenItem.parentNode.removeChild(chosenItem);
     chosenItem = null;
     colorBar.removeChild(selectedIndicator);
     setChosenListTitle();
@@ -162,13 +159,23 @@ var Color = function(n, c) {
     }
   };
 
+  // Simulate enter input
+  var keyboardEvent = document.createEvent("KeyboardEvent");
+  var initMethod = (typeof keyboardEvent.initKeyboardEvent !== 'undefined') ?
+                    "initKeyboardEvent" : "initKeyEvent";
+  keyboardEvent[initMethod](
+    "keydown", true, true, window, false, false, false, false, 13, 0
+  );
+
   var removeAll = function(evt) {
-    var item = evt.item; // <-- to jest dom node donuta
-    // ALL THE CODE THAT SELECTS INPUT & UPDATS IT"S VALUE SHOULD GO HERE
-    console.log(item.id);
+    var item = evt.item;
     var colorBar = document.getElementById('c1-' + item.id + '1');
-    colorBar.getElementsByTagName('input')[0].value = 0;
-  }
+    var colorBarInput = colorBar.getElementsByTagName('input')[0];
+    colorBarInput.focus();
+    colorBarInput.value = 0;
+    colorBar.classList.remove('donut-hover');
+    colorBarInput.dispatchEvent(keyboardEvent);
+  };
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
     animation: 150,
@@ -183,30 +190,42 @@ var Color = function(n, c) {
   });
 
   setChosenListTitle();
-  checkMobile();
-  window.addEventListener('resize', checkMobile);
 
   create(n, c);
 };
 
-var stickList = function() {
-  var windowTop = window.scrollY;
-  var chosenList = document.getElementsByClassName('c1-chosen-colors')[0];
-  var stickAnchor = document.getElementsByClassName('c1-main-container')[0];
-  var listTop = stickAnchor.offsetTop + 320; // I don't know why 320px but it's working
-  if (windowTop > listTop) {
-    chosenList.classList.add('sticky');
-  } else {
-    chosenList.classList.remove('sticky');
+window.onload = function(){
+  var isMobile;
+  var colors = [];
+  var checkMobile = function() {
+    if (screen.width < 481) {
+      isMobile = true;
+    } else {
+      isMobile = false;
+    }
+  };
+
+  var stickList = function() {
+    var spectrum = document.getElementById('c1-spectrum');
+    var windowTop = window.scrollY;
+    var chosenList = document.getElementsByClassName('c1-chosen-colors')[0];
+    var stickAnchor = document.getElementsByClassName('c1-main-container')[0];
+    var listTop = stickAnchor.offsetTop + 320; // I don't know why 320px but it's working
+    if (windowTop > listTop) {
+      chosenList.classList.add('sticky');
+      spectrum.classList.remove('c1-offscreen-hidden');
+    } else {
+      chosenList.classList.remove('sticky');
+      spectrum.classList.add('c1-offscreen-hidden');
+    }
+  };
+
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+
+  if (isMobile) {
+    colorSpectrum();
   }
-} 
 
-var setTrashIcon = function() { 
-  var trashListTitle = document.getElementsByClassName('c1-li-title')[0];
-  var trashListIcon = document.createElement('img');
-  trashListTitle.appendChild(trashListIcon);
-  trashListIcon.src = 'url(' + dir + "modules/c1b291cb852/trash.png)";
-}
-setTrashIcon();
-
-window.addEventListener('scroll', stickList);
+  window.addEventListener('scroll', stickList);
+};
