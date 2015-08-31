@@ -37,8 +37,12 @@ var Color = function(id, n, c, p) {
       token: token,
       ipa: colorId
     }).done(function( data ) {
+      // not enough products in stock should be handled here as well
       console.log( "Data Loaded: " + data );
+    }).fail(function(){
+      alert('error, try again.');
     });
+
     if (quantity !== 0 && oldQty === 0) {
       createDonut();
 
