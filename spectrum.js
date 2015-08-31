@@ -37,7 +37,7 @@ var colorSpectrum = function(){
         ctx.fillRect(posX, pos, 25, tempSize);
       } else {
         var image = new Image();
-        image.src = dir + color.color;
+        image.src = C1.dir + color.color;
         ctx.rect(posX, pos,25, tempSize);
         ctx.fillStyle = ctx.createPattern(image, "no-repeat");
         ctx.fill();
@@ -67,7 +67,7 @@ var colorSpectrum = function(){
       ctx.fillRect(0, touchPosition - activeColorSize, activeColorSize, activeColorSize);
     } else {
       var image = new Image();
-      image.src = dir + color;
+      image.src = C1.dir + color;
       ctx.rect(0, touchPosition - activeColorSize, activeColorSize, activeColorSize);
       ctx.fillStyle = ctx.createPattern(image, "no-repeat");
       ctx.fill();
