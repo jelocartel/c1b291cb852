@@ -28,6 +28,17 @@ var Color = function(id, n, c, p) {
     oldQty = quantity;
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
 
+    $.post( "index.php?" + (new Date()), {
+      controller: 'cart',
+      add: 1,
+      ajax: true,
+      qty: quantity,
+      id_product: 9,
+      token: token,
+      ipa: colorId
+    }).done(function( data ) {
+      console.log( "Data Loaded: " + data );
+    });
     if (quantity !== 0 && oldQty === 0) {
       createDonut();
 
