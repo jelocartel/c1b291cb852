@@ -26,7 +26,6 @@ var Color = function(id, n, c, p) {
   var reqTimeout;
 
   var updateQuantity = function(deltaQty){
-    oldQty = quantity;
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
 
     clearTimeout(reqTimeout);
@@ -39,56 +38,49 @@ var Color = function(id, n, c, p) {
         token: token,
         ipa: colorId
       }).done(function( data ) {
-        if (quantity > 0) {
-          $.post( "index.php?" + (new Date()), {
-            controller: 'cart',
-            add: 1,
-            ajax: true,
-            qty: quantity,
-            id_product: C1.product.id,
-            token: token,
-            ipa: colorId
-          }).done(function( data ) {
-            // not enough products in stock should be handled here as well
-            //console.log( "Data Loaded: " + data );
-            data = JSON.parse(data);
-            console.log(data);
-            if (data.hasError) {
-              ajaxCart.showToaster(data.errors[0]);
-            } else {
-              ajaxCart.showToaster();
-              if (quantity !== 0 && oldQty === 0) {
-                createDonut();
+        $.post( "index.php?" + (new Date()), {
+          controller: 'cart',
+          add: 1,
+          ajax: true,
+          qty: quantity,
+          id_product: C1.product.id,
+          token: token,
+          ipa: colorId
+        }).done(function( data ) {
+          // not enough products in stock should be handled here as well
+          //console.log( "Data Loaded: " + data );
+          data = JSON.parse(data);
+          console.log(data);
+          if (data.hasError && quantity > 0) {
+            ajaxCart.showToaster(data.errors[0], true);
+            quantityInput.value = quantity = oldQty;
+          } else {
+            oldQty = quantity;
+            ajaxCart.showToaster();
+            if (quantity !== 0 && !document.getElementById(name + '1')) {
+              createDonut();
 
-                // Add 'selected indicator (✓)' to the color bar
-                selectedIndicator = document.createElement('img');
-                selectedIndicator.src = C1.dir + "modules/c1b291cb852/checked-sign.png";
-                selectedIndicator.classList.add('c1-checked-sign');
-                colorBar.appendChild(selectedIndicator);
+              // Add 'selected indicator (✓)' to the color bar
+              selectedIndicator = document.createElement('img');
+              selectedIndicator.src = C1.dir + "modules/c1b291cb852/checked-sign.png";
+              selectedIndicator.classList.add('c1-checked-sign');
+              colorBar.appendChild(selectedIndicator);
 
-              } else if (quantity === 0 && chosenItem) {
-                donutContainer.addEventListener('transitionend', removeDonut);
-                donutContainer.classList.remove('active');
-              }
-
-              if (qtyDonut) {
-                qtyDonut.classList.remove('pulse');
-                qtyDonut.textContent = quantity;
-                setTimeout(function(){
-                  qtyDonut.classList.add('pulse');
-                }, 100);
-              }
+            } else if (quantity === 0 && chosenItem) {
+              donutContainer.addEventListener('transitionend', removeDonut);
+              donutContainer.classList.remove('active');
             }
-            ajaxCart.refresh();
-          }).fail(function(){
-            alert('error, try again.');
-          });
-        } else {
-          // refresh cart even in qty = 0 so the last item will not stay there
+
+            if (qtyDonut) {
+              qtyDonut.classList.remove('pulse');
+              qtyDonut.textContent = quantity;
+              setTimeout(function(){
+                qtyDonut.classList.add('pulse');
+              }, 100);
+            }
+          }
           ajaxCart.refresh();
-        }
-      }).fail(function(err){
-        alert('error, try again.');
+        });
       });
     }, 500);
   };
