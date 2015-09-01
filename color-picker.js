@@ -33,7 +33,7 @@ var Color = function(id, n, c, p) {
       add: 1,
       ajax: true,
       qty: quantity,
-      id_product: 9,
+      id_product: C1.product.id,
       token: token,
       ipa: colorId
     }).done(function( data ) {
