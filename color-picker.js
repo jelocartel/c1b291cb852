@@ -1,13 +1,15 @@
 var colors = [];
 
-var Color = function(n, c) {
+var Color = function(n, c, p) {
   colors.push({
     name: n,
-    color: c
+    color: c,
+    extraPrice: p
   });
 
   var name;
   var color;
+  var extraPrice;
   var oldQty = 0;
   var quantity = 0;
   var list = document.getElementById('c1-color-list');
@@ -106,9 +108,10 @@ var Color = function(n, c) {
     }
   };
 
-  var create = function(colorName, colorValue) {
+  var create = function(colorName, colorValue, colorPrice) {
     name = colorName;
     color = colorValue;
+    extraPrice = colorPrice;
     colorBar = document.createElement('li');
     colorBar.id = 'c1-' + name + '1';
     if (color.charAt(0) === '#') {
@@ -121,6 +124,13 @@ var Color = function(n, c) {
     quantityPanel = document.createElement('div');
     quantityPanel.classList.add('c1-qty-panel');
     colorBar.appendChild(quantityPanel);
+
+    if (extraPrice > 0 || extraPrice < 0) {
+      extraPriceDiv = document.createElement('div');
+      colorBar.appendChild(extraPriceDiv);
+      extraPriceDiv.classList.add('extra-price');
+      extraPriceDiv.innerHTML = extraPrice; // +global price
+    }
 
     var incrementButton = document.createElement('div');
     incrementButton.classList.add('c1-button');
@@ -191,7 +201,7 @@ var Color = function(n, c) {
 
   setChosenListTitle();
 
-  create(n, c);
+  create(n, c, p);
 };
 
 window.onload = function(){
