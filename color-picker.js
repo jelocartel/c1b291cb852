@@ -1,12 +1,13 @@
 var colors = [];
 
-var Color = function(n, c, p) {
+var Color = function(id, n, c, p) {
   colors.push({
     name: n,
     color: c,
     extraPrice: p
   });
 
+  var colorId = id;
   var name;
   var color;
   var extraPrice;
