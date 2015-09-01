@@ -29,8 +29,12 @@ var Color = function(id, n, c, p, q) {
 
   var updateQuantity = function(deltaQty){
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
-
     clearTimeout(reqTimeout);
+
+    if (quantity !== 0 && !document.getElementById(name + '1')) {
+      console.log('dodaj spinner');
+    }
+    
     reqTimeout = setTimeout(function(){
       $.post( "index.php?" + (new Date()), {
         controller: 'cart',
@@ -60,6 +64,7 @@ var Color = function(id, n, c, p, q) {
             oldQty = quantity;
             ajaxCart.showToaster();
             if (quantity !== 0 && !document.getElementById(name + '1')) {
+              console.log('zamien spinner na donut');
               createDonut();
               createSelectedIndicator();
 
@@ -189,7 +194,7 @@ var Color = function(id, n, c, p, q) {
     incrementButton.classList.add('c1-button');
     incrementButton.textContent = '+';
     quantityPanel.appendChild(incrementButton);
-    
+
     var itemName = document.createElement('p');
     itemName.classList.add('c1-color-name');
     itemName.textContent = name;
@@ -288,8 +293,8 @@ window.onload = function(){
   //       var colorBarInput = colorBar.getElementsByTagName('input')[0];
   //       colorBarInput.value = products[i].quantity;
   //       colorBarInput.focus();
-  //       colorBarInput.dispatchEvent(keyboardEvent);  
-  //     }    
+  //       colorBarInput.dispatchEvent(keyboardEvent);
+  //     }
   //   }
   //   // var cartAlert = $('#alert_cart');
   //   // cartAlert.css('display','none');
