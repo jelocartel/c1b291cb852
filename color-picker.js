@@ -24,37 +24,41 @@ var Color = function(id, n, c, p) {
   var selectedIndicator;
   var chosenItem;
   var reqTimeout;
-  
+
   var updateQuantity = function(deltaQty){
     oldQty = quantity;
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
 
-    $.post( "index.php?" + (new Date()), {
-      controller: 'cart',
-      delete: 1,
-      ajax: true,
-      id_product: C1.product.id,
-      token: token,
-      ipa: colorId
-    }).done(function( data ) {
+    clearTimeout(reqTimeout);
+    reqTimeout = setTimeout(function(){
       $.post( "index.php?" + (new Date()), {
         controller: 'cart',
-        add: 1,
+        delete: 1,
         ajax: true,
-        qty: quantity,
         id_product: C1.product.id,
         token: token,
         ipa: colorId
       }).done(function( data ) {
-        // not enough products in stock should be handled here as well
-        //console.log( "Data Loaded: " + data );
-        ajaxCart.refresh();
-      }).fail(function(){
+        $.post( "index.php?" + (new Date()), {
+          controller: 'cart',
+          add: 1,
+          ajax: true,
+          qty: quantity,
+          id_product: C1.product.id,
+          token: token,
+          ipa: colorId
+        }).done(function( data ) {
+          // not enough products in stock should be handled here as well
+          //console.log( "Data Loaded: " + data );
+          ajaxCart.refresh();
+        }).fail(function(){
+          alert('error, try again.');
+        });
+      }).fail(function(err){
         alert('error, try again.');
       });
-    }).fail(function(err){
-      alert('error, try again.');
-    });
+    }, 500);
+
     if (quantity !== 0 && oldQty === 0) {
       createDonut();
 
