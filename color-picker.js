@@ -32,7 +32,7 @@ var Color = function(n, c, p) {
 
       // Add 'selected indicator (✓)' to the color bar
       selectedIndicator = document.createElement('img');
-      selectedIndicator.src = dir + "modules/c1b291cb852/checked-sign.png";
+      selectedIndicator.src = C1.dir + "modules/c1b291cb852/checked-sign.png";
       selectedIndicator.classList.add('c1-checked-sign');
       colorBar.appendChild(selectedIndicator);
 
@@ -63,12 +63,12 @@ var Color = function(n, c, p) {
     if (color.charAt(0) === '#') {
       donutContainer.style.backgroundColor = color;
     } else {
-      donutContainer.style.backgroundImage = 'url('+ dir+color+')';
+      donutContainer.style.backgroundImage = 'url('+ C1.dir+color+')';
       donutContainer.style.backgroundSize = 'cover';
     }
 
     var donut = document.createElement('img');
-    donut.src = dir + "modules/c1b291cb852/donut.png";
+    donut.src = C1.dir + "modules/c1b291cb852/donut.png";
     donut.classList.add('c1-donut');
     donutContainer.appendChild(donut);
     donut.title = name;
@@ -117,7 +117,7 @@ var Color = function(n, c, p) {
     if (color.charAt(0) === '#') {
       colorBar.style.backgroundColor = color;
     } else {
-      colorBar.style.backgroundImage = 'url(' + dir + color + ')';
+      colorBar.style.backgroundImage = 'url(' + C1.dir + color + ')';
     }
     list.appendChild(colorBar);
 
@@ -205,6 +205,9 @@ var Color = function(n, c, p) {
 };
 
 window.onload = function(){
+
+  alert('cena ' + C1.product.price);
+
   var isMobile;
   var colors = [];
   var spectrum = document.getElementById('c1-spectrum');
