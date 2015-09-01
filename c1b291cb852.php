@@ -42,6 +42,7 @@ class c1b291cb852 extends Module
       $combinations[$i]["color_value"] = $attributeId->color == '0' ? 'img/co/'.$combinations[$i]['id_attribute'].'.jpg' : $attributeId->color;
     }
 
+    $smarty->assign('product', $this_product);
     $smarty->assign('combinations', $combinations);
     return $this->display(__FILE__, 'template.tpl');
   }

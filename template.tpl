@@ -19,7 +19,16 @@
 <script src="{$base_dir}modules/c1b291cb852/spectrum.js"></script>
 <script>
 
-var dir = '{$base_dir}';
+{literal}
+  var C1 = {
+    dir: baseDir,
+    product: {
+{/literal}
+      price: ({$product->price}*1.23).toFixed(2)
+{literal}
+    }
+  };
+{/literal}
 //qweqwe
 // {foreach from=$combinations[0] key=id item=elo}
 //   //{$id} - {$elo}
