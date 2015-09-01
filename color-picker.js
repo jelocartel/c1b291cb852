@@ -129,7 +129,8 @@ var Color = function(n, c, p) {
       extraPriceDiv = document.createElement('div');
       colorBar.appendChild(extraPriceDiv);
       extraPriceDiv.classList.add('extra-price');
-      extraPriceDiv.innerHTML = extraPrice; // +global price
+      var totalPrice = (parseFloat(extraPrice) + parseFloat(C1.product.price)).toFixed(2);
+      extraPriceDiv.innerHTML = totalPrice; 
     }
 
     var incrementButton = document.createElement('div');
@@ -206,8 +207,6 @@ var Color = function(n, c, p) {
 
 window.onload = function(){
 
-  alert('cena ' + C1.product.price);
-
   var isMobile;
   var colors = [];
   var spectrum = document.getElementById('c1-spectrum');
@@ -250,7 +249,7 @@ window.onload = function(){
     var trashListTitle = document.getElementsByClassName('c1-li-title')[0];
     var trashListIcon = document.createElement('img');
     trashListTitle.appendChild(trashListIcon);
-    trashListIcon.src = dir + "modules/c1b291cb852/trash.png";
+    trashListIcon.src = C1.dir + "modules/c1b291cb852/trash.png";
   };
   setTrashIcon();
 
