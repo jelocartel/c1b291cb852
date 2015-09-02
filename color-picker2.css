@@ -144,6 +144,20 @@ body {
   transform: scale(0);
   transition: transform 0.2s;
 }
+.spinner img {
+  width: auto;
+  margin: auto;
+  margin-bottom: 12px;
+}
+.c1-donut-div .qty-update {
+  width: 100% !important;
+  height: 100% !important;
+  padding-top: 13px !important;
+  color: transparent;
+}
+.c1-donut-div .qty-update img {
+  margin: auto;
+}
 
 .c1-donut {
   width:100%;

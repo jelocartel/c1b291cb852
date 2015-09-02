@@ -33,6 +33,25 @@ var Color = function(id, n, c, p, q) {
 
     if (quantity !== 0 && !document.getElementById(name + '1')) {
       console.log('dodaj spinner');
+      chosenItem = document.createElement('li');
+      chosenItem.id = name + '-spinner';
+      chosenList.appendChild(chosenItem);
+
+      spinnerContainer = document.createElement('div');
+      spinnerContainer.className = 'c1-donut-div active spinner';
+      chosenItem.appendChild(spinnerContainer); 
+
+      var spinner = document.createElement('img');
+      spinner.src = C1.dir + "modules/c1b291cb852/spinner.gif";
+      spinner.classList.add('c1-donut');
+      spinnerContainer.appendChild(spinner);     
+    } else {
+      var donat = document.getElementById(name);
+      var qtyDivUp = donat.getElementsByClassName('c1-qtyDonut')[0];
+      qtyDivUp.classList.remove('pulse');
+      qtyDivUp.classList.add('qty-update');
+      var spin = qtyDivUp.appendChild(document.createElement('img'));
+      spin.src = C1.dir + "modules/c1b291cb852/spinner.gif";
     }
     
     reqTimeout = setTimeout(function(){
@@ -65,6 +84,8 @@ var Color = function(id, n, c, p, q) {
             ajaxCart.showToaster();
             if (quantity !== 0 && !document.getElementById(name + '1')) {
               console.log('zamien spinner na donut');
+              var spinnerToRemove = document.getElementById(name + '-spinner');
+              chosenList.removeChild(spinnerToRemove);
               createDonut();
               createSelectedIndicator();
 
@@ -74,6 +95,8 @@ var Color = function(id, n, c, p, q) {
             }
 
             if (qtyDonut) {
+              qtyDonut.classList.remove('qty-update');
+              qtyDonut.removeChild(qtyDonut.getElementsByTagName('img')[0]);
               qtyDonut.classList.remove('pulse');
               qtyDonut.textContent = quantity;
               setTimeout(function(){
