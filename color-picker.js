@@ -53,9 +53,9 @@ var Color = function(id, n, c, p, q) {
       var spin = qtyDivUp.appendChild(document.createElement('img'));
       spin.src = C1.dir + "modules/c1b291cb852/spinner.gif";
     }
-    
+
     reqTimeout = setTimeout(function(){
-      $.post( "index.php?" + (new Date()), {
+      $.post( "index.php?rand=" + (+(new Date())), {
         controller: 'cart',
         delete: 1,
         ajax: true,
@@ -63,7 +63,7 @@ var Color = function(id, n, c, p, q) {
         token: token,
         ipa: colorId
       }).done(function( data ) {
-        $.post( "index.php?" + (new Date()), {
+        $.post( "index.php?rand=" + (+(new Date())), {
           controller: 'cart',
           add: 1,
           ajax: true,
@@ -72,10 +72,8 @@ var Color = function(id, n, c, p, q) {
           token: token,
           ipa: colorId
         }).done(function( data ) {
-          // not enough products in stock should be handled here as well
-          //console.log( "Data Loaded: " + data );
           data = JSON.parse(data);
-          // console.log(data);
+          // not enough products in stock
           if (data.hasError && quantity > 0) {
             ajaxCart.showToaster(data.errors[0], true);
             quantityInput.value = quantity = oldQty;
@@ -167,10 +165,16 @@ var Color = function(id, n, c, p, q) {
     setChosenListTitle();
   };
 
-  var inputUpdate = function(evt) {
+  var inputBlur = function(evt){
+    console.log('blur');
+    inputUpdate(evt, true);
+  };
+
+  var inputUpdate = function(evt, force) {
     var value = parseInt(evt.target.value, 10);
     var id = evt.target.parentNode.parentNode.id;
-    if  (evt.keyCode === 13) {
+    if  (evt.keyCode === 13 || force) {
+      console.log('inputUpdate');
       var delta = Number.isNaN(value) ? 0 : value;
       updateQuantity(delta - quantity);
     }
@@ -210,6 +214,7 @@ var Color = function(id, n, c, p, q) {
     quantityInput = document.createElement('input');
     quantityInput.classList.add('c1-qty');
     quantityInput.addEventListener('keydown', inputUpdate);
+    quantityInput.addEventListener('blur', inputBlur);
     quantityInput.value = startQuantity;
     quantityPanel.appendChild(quantityInput);
 
