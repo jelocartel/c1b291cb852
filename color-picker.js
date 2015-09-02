@@ -1,16 +1,18 @@
 var colors = [];
 
-var Color = function(id, n, c, p) {
+var Color = function(id, n, c, p, q) {
   colors.push({
     name: n,
     color: c,
-    extraPrice: p
+    extraPrice: p,
+    startQuantity: q
   });
 
   var colorId = id;
   var name;
   var color;
   var extraPrice;
+  var startQuantity;
   var oldQty = 0;
   var quantity = 0;
   var list = document.getElementById('c1-color-list');
@@ -59,12 +61,7 @@ var Color = function(id, n, c, p) {
             ajaxCart.showToaster();
             if (quantity !== 0 && !document.getElementById(name + '1')) {
               createDonut();
-
-              // Add 'selected indicator (✓)' to the color bar
-              selectedIndicator = document.createElement('img');
-              selectedIndicator.src = C1.dir + "modules/c1b291cb852/checked-sign.png";
-              selectedIndicator.classList.add('c1-checked-sign');
-              colorBar.appendChild(selectedIndicator);
+              createSelectedIndicator();
 
             } else if (quantity === 0 && chosenItem) {
               donutContainer.addEventListener('transitionend', removeDonut);
@@ -83,6 +80,14 @@ var Color = function(id, n, c, p) {
         });
       });
     }, 500);
+  };
+
+  var createSelectedIndicator = function(){
+       // Add 'selected indicator (✓)' to the color bar
+    selectedIndicator = document.createElement('img');
+    selectedIndicator.src = C1.dir + "modules/c1b291cb852/checked-sign.png";
+    selectedIndicator.classList.add('c1-checked-sign');
+    colorBar.appendChild(selectedIndicator);
   };
 
   var createDonut = function() {
@@ -143,10 +148,11 @@ var Color = function(id, n, c, p) {
     }
   };
 
-  var create = function(colorName, colorValue, colorPrice) {
+  var create = function(colorName, colorValue, colorPrice, startQuantity) {
     name = colorName;
     color = colorValue;
     extraPrice = colorPrice;
+    quantity = startQuantity;
     colorBar = document.createElement('li');
     colorBar.id = 'c1-' + name + '1';
     if (color.charAt(0) === '#') {
@@ -176,7 +182,7 @@ var Color = function(id, n, c, p) {
     quantityInput = document.createElement('input');
     quantityInput.classList.add('c1-qty');
     quantityInput.addEventListener('keydown', inputUpdate);
-    quantityInput.value = quantity;
+    quantityInput.value = startQuantity;
     quantityPanel.appendChild(quantityInput);
 
     var incrementButton = document.createElement('div');
@@ -195,6 +201,13 @@ var Color = function(id, n, c, p) {
     decrementButton.addEventListener('click', function() {
       updateQuantity(-1);
     });
+
+    // if items are already in the cart and we're revisiting the page
+    // simulate adding to cart without the backend request
+    if (startQuantity > 0) {
+      createDonut();
+      createSelectedIndicator();
+    }
   };
 
   var setChosenListTitle = function() {
@@ -237,7 +250,7 @@ var Color = function(id, n, c, p) {
 
   setChosenListTitle();
 
-  create(n, c, p);
+  create(n, c, p, q);
 };
 
 window.onload = function(){
@@ -259,47 +272,47 @@ window.onload = function(){
     }
   };
 
-  var setProperColorsQuantity = function(jsonData) {
-    var keyboardEvent = document.createEvent("KeyboardEvent");
-    var initMethod = (typeof keyboardEvent.initKeyboardEvent !== 'undefined') ?
-                      "initKeyboardEvent" : "initKeyEvent";
-    keyboardEvent[initMethod](
-      "keydown", true, true, window, false, false, false, false, 13, 0
-    );
+  // var setProperColorsQuantity = function(jsonData) {
+  //   var keyboardEvent = document.createEvent("KeyboardEvent");
+  //   var initMethod = (typeof keyboardEvent.initKeyboardEvent !== 'undefined') ?
+  //                     "initKeyboardEvent" : "initKeyEvent";
+  //   keyboardEvent[initMethod](
+  //     "keydown", true, true, window, false, false, false, false, 13, 0
+  //   );
 
-    var products = jsonData.products;
-    for (i = 0; i < products.length; i++) {
-      if (products[i].quantity !== 0) {
-        var colorName = products[i].attributes;
-        var colorBar = document.getElementById('c1-' + colorName + '1');
-        var colorBarInput = colorBar.getElementsByTagName('input')[0];
-        colorBarInput.value = products[i].quantity;
-        colorBarInput.focus();
-        colorBarInput.dispatchEvent(keyboardEvent);  
-      }    
-    }
-    // var cartAlert = $('#alert_cart');
-    // cartAlert.css('display','none');
-    $('.alert_cart').slideUp(400, function () {
-      $(this).remove()
-    })
-  };
+  //   var products = jsonData.products;
+  //   for (i = 0; i < products.length; i++) {
+  //     if (products[i].quantity !== 0) {
+  //       var colorName = products[i].attributes;
+  //       var colorBar = document.getElementById('c1-' + colorName + '1');
+  //       var colorBarInput = colorBar.getElementsByTagName('input')[0];
+  //       colorBarInput.value = products[i].quantity;
+  //       colorBarInput.focus();
+  //       colorBarInput.dispatchEvent(keyboardEvent);  
+  //     }    
+  //   }
+  //   // var cartAlert = $('#alert_cart');
+  //   // cartAlert.css('display','none');
+  //   $('.alert_cart').slideUp(400, function () {
+  //     $(this).remove()
+  //   })
+  // };
 
-  var refresh = function(){
-    $.ajax({
-      type: 'POST',
-      headers: { "cache-control": "no-cache" },
-      url: baseUri + '?rand=' + new Date().getTime(),
-      async: true,
-      cache: false,
-      dataType : "json",
-      data: 'controller=cart&ajax=true&token=' + static_token,
-      success: function(jsonData)
-      {
-        setProperColorsQuantity(jsonData);
-      }
-    });
-  }
+  // var refresh = function(){
+  //   $.ajax({
+  //     type: 'POST',
+  //     headers: { "cache-control": "no-cache" },
+  //     url: baseUri + '?rand=' + new Date().getTime(),
+  //     async: true,
+  //     cache: false,
+  //     dataType : "json",
+  //     data: 'controller=cart&ajax=true&token=' + static_token,
+  //     success: function(jsonData)
+  //     {
+  //       setProperColorsQuantity(jsonData);
+  //     }
+  //   });
+  // }
 
   var stickList = function() {
     var spectrum = document.getElementById('c1-spectrum');
@@ -347,7 +360,7 @@ window.onload = function(){
   removeBuyNowButtons();
   setTrashIcon();
   checkMobile();
-  refresh();
+  //refresh();
   window.addEventListener('resize', checkMobile);
   window.addEventListener('scroll', stickList);
 };

@@ -20,6 +20,7 @@
 <script>
 
 {literal}
+  var qtyObject = {};
   var C1 = {
     dir: baseDir,
     product: {
@@ -29,21 +30,42 @@
 {literal}
     }
   };
+
+var createColors = function(){
 {/literal}
-//qweqwe
-// {foreach from=$combinations[0] key=id item=elo}
-//   //{$id} - {$elo}
-// {/foreach}
 
-{foreach from=$combinations key=id item=combination}
-  {if strpos($combination.group_name, "Color") !== false && $combination.quantity > 0}
-    new Color(
-      '{$combination.id_product_attribute}',
-      '{$combination.attribute_name}',
-      '{$combination.color_value}',
-      parseFloat({$combination.price}*1.23).toFixed(2)
-    );
-  {/if}
-{/foreach}
+  {foreach from=$combinations key=id item=combination}
+    {if strpos($combination.group_name, "Color") !== false && $combination.quantity > 0}
+      new Color(
+        '{$combination.id_product_attribute}',
+        '{$combination.attribute_name}',
+        '{$combination.color_value}',
+        parseFloat({$combination.price}*1.23).toFixed(2),
+        qtyObject['{$combination.attribute_name}'] || 0
+      );
+    {/if}
+  {/foreach}
 
+{literal}
+};
+
+$.ajax({
+      type: 'POST',
+      headers: { "cache-control": "no-cache" },
+      url: baseUri + '?rand=' + new Date().getTime(),
+      async: true,
+      cache: false,
+      dataType : "json",
+      data: 'controller=cart&ajax=true&token=' + static_token,
+      success: function(jsonData)
+      {
+          jsonData.products.forEach(function(product){
+            qtyObject[product.attributes] = product.quantity;
+          });
+          
+          createColors();
+      }
+    });
+
+{/literal}
 </script>
