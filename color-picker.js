@@ -39,13 +39,13 @@ var Color = function(id, n, c, p, q) {
 
         spinnerContainer = document.createElement('div');
         spinnerContainer.className = 'c1-donut-div active spinner';
-        chosenItem.appendChild(spinnerContainer); 
+        chosenItem.appendChild(spinnerContainer);
 
         var spinner = document.createElement('img');
         spinner.src = C1.dir + "modules/c1b291cb852/spinner.gif";
         spinner.classList.add('c1-donut');
         spinnerContainer.appendChild(spinner);
-      }     
+      }
     } else {
       var donat = document.getElementById(name);
       var qtyDivUp = donat.getElementsByClassName('c1-qtyDonut')[0];
@@ -53,7 +53,7 @@ var Color = function(id, n, c, p, q) {
       qtyDivUp.classList.add('qty-update');
       if (!document.getElementById('qty-donut-spinner' + name)) {
         var spin = qtyDivUp.appendChild(document.createElement('img'));
-        spin.id = 'qty-donut-spinner' + name;'qty-donut-spinner' + name
+        spin.id = 'qty-donut-spinner' + name;
         spin.src = C1.dir + "modules/c1b291cb852/spinner.gif";
       }
     }
@@ -77,6 +77,13 @@ var Color = function(id, n, c, p, q) {
           ipa: colorId
         }).done(function( data ) {
           data = JSON.parse(data);
+          if (qtyDonut) {
+            var donutSpinner = qtyDonut.getElementsByTagName('img')[0];
+            if (donutSpinner) {
+              qtyDonut.removeChild(donutSpinner);
+              qtyDonut.classList.remove('qty-update');
+            }
+          }
           // not enough products in stock
           if (data.hasError && quantity > 0) {
             ajaxCart.showToaster(data.errors[0], true);
@@ -96,8 +103,6 @@ var Color = function(id, n, c, p, q) {
             }
 
             if (qtyDonut) {
-              qtyDonut.classList.remove('qty-update');
-              qtyDonut.removeChild(qtyDonut.getElementsByTagName('img')[0]);
               qtyDonut.classList.remove('pulse');
               qtyDonut.textContent = quantity;
               setTimeout(function(){
@@ -306,48 +311,6 @@ window.onload = function(){
     }
   };
 
-  // var setProperColorsQuantity = function(jsonData) {
-  //   var keyboardEvent = document.createEvent("KeyboardEvent");
-  //   var initMethod = (typeof keyboardEvent.initKeyboardEvent !== 'undefined') ?
-  //                     "initKeyboardEvent" : "initKeyEvent";
-  //   keyboardEvent[initMethod](
-  //     "keydown", true, true, window, false, false, false, false, 13, 0
-  //   );
-
-  //   var products = jsonData.products;
-  //   for (i = 0; i < products.length; i++) {
-  //     if (products[i].quantity !== 0) {
-  //       var colorName = products[i].attributes;
-  //       var colorBar = document.getElementById('c1-' + colorName + '1');
-  //       var colorBarInput = colorBar.getElementsByTagName('input')[0];
-  //       colorBarInput.value = products[i].quantity;
-  //       colorBarInput.focus();
-  //       colorBarInput.dispatchEvent(keyboardEvent);
-  //     }
-  //   }
-  //   // var cartAlert = $('#alert_cart');
-  //   // cartAlert.css('display','none');
-  //   $('.alert_cart').slideUp(400, function () {
-  //     $(this).remove()
-  //   })
-  // };
-
-  // var refresh = function(){
-  //   $.ajax({
-  //     type: 'POST',
-  //     headers: { "cache-control": "no-cache" },
-  //     url: baseUri + '?rand=' + new Date().getTime(),
-  //     async: true,
-  //     cache: false,
-  //     dataType : "json",
-  //     data: 'controller=cart&ajax=true&token=' + static_token,
-  //     success: function(jsonData)
-  //     {
-  //       setProperColorsQuantity(jsonData);
-  //     }
-  //   });
-  // }
-
   var stickList = function() {
     var spectrum = document.getElementById('c1-spectrum');
     var windowTop = window.scrollY;
@@ -376,8 +339,10 @@ window.onload = function(){
 
   var removeBuyNowButtons = function(){
     var priceButtons = document.getElementsByClassName('content_prices')[0];
-    priceButtons.parentNode.removeChild(priceButtons);
-    priceButtons = '';
+    var priceButtonsParent = priceButtons.parentNode;
+    //.removeChild(priceButtons);
+    //priceButtons = '';
+    priceButtonsParent.innerHTML = '<div style="padding:5px; color: #fff; text-align: center;">Wybierz kolory uzywając panelu kolorów poniżej.</div>';
   };
 
   // request structure
