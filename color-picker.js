@@ -133,10 +133,10 @@ var Color = function(n, c, p) {
       extraPriceDiv.innerHTML = totalPrice; 
     }
 
-    var incrementButton = document.createElement('div');
-    incrementButton.classList.add('c1-button');
-    incrementButton.textContent = '+';
-    quantityPanel.appendChild(incrementButton);
+    var decrementButton = document.createElement('div');
+    quantityPanel.appendChild(decrementButton);
+    decrementButton.textContent = '-';
+    decrementButton.classList.add('c1-button');
 
     quantityInput = document.createElement('input');
     quantityInput.classList.add('c1-qty');
@@ -144,11 +144,11 @@ var Color = function(n, c, p) {
     quantityInput.value = quantity;
     quantityPanel.appendChild(quantityInput);
 
-    var decrementButton = document.createElement('div');
-    quantityPanel.appendChild(decrementButton);
-    decrementButton.textContent = '-';
-    decrementButton.classList.add('c1-button');
-
+    var incrementButton = document.createElement('div');
+    incrementButton.classList.add('c1-button');
+    incrementButton.textContent = '+';
+    quantityPanel.appendChild(incrementButton);
+    
     var itemName = document.createElement('p');
     itemName.classList.add('c1-color-name');
     itemName.textContent = name;
