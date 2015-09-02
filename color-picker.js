@@ -34,7 +34,7 @@ var Color = function(id, n, c, p, q) {
     if (quantity !== 0 && !document.getElementById(name + '1')) {
       console.log('dodaj spinner');
     }
-    
+
     reqTimeout = setTimeout(function(){
       $.post( "index.php?" + (new Date()), {
         controller: 'cart',
@@ -53,10 +53,8 @@ var Color = function(id, n, c, p, q) {
           token: token,
           ipa: colorId
         }).done(function( data ) {
-          // not enough products in stock should be handled here as well
-          //console.log( "Data Loaded: " + data );
           data = JSON.parse(data);
-          // console.log(data);
+          // not enough products in stock
           if (data.hasError && quantity > 0) {
             ajaxCart.showToaster(data.errors[0], true);
             quantityInput.value = quantity = oldQty;
