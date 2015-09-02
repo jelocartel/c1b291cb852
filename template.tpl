@@ -20,17 +20,19 @@
 <script>
 
 {literal}
-  var qtyObject = {};
-  var C1 = {
-    dir: baseDir,
-    product: {
-{/literal}
-      id: {$product->id},
-      price: ({$product->price}*1.23).toFixed(2)
-{literal}
-    }
-  };
 
+var C1 = {
+  dir: baseDir,
+  qtyObject: {},
+  product: {
+{/literal}
+    id: {$product->id},
+    price: ({$product->price}*1.23).toFixed(2)
+{literal}
+  }
+};
+
+(function(){
 var createColors = function(){
 {/literal}
 
@@ -41,7 +43,7 @@ var createColors = function(){
         '{$combination.attribute_name}',
         '{$combination.color_value}',
         parseFloat({$combination.price}*1.23).toFixed(2),
-        qtyObject['{$combination.attribute_name}'] || 0
+        C1.qtyObject['{$combination.attribute_name}'] || 0
       );
     {/if}
   {/foreach}
@@ -60,12 +62,12 @@ $.ajax({
       success: function(jsonData)
       {
           jsonData.products.forEach(function(product){
-            qtyObject[product.attributes] = product.quantity;
+            C1.qtyObject[product.attributes] = product.quantity;
           });
-          
+
           createColors();
       }
     });
-
+})();
 {/literal}
 </script>
