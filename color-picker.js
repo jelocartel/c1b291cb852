@@ -77,6 +77,13 @@ var Color = function(id, n, c, p, q) {
           ipa: colorId
         }).done(function( data ) {
           data = JSON.parse(data);
+          if (qtyDonut) {
+            var donutSpinner = qtyDonut.getElementsByTagName('img')[0];
+            if (donutSpinner) {
+              qtyDonut.removeChild(donutSpinner);
+              qtyDonut.classList.remove('qty-update');
+            }
+          }
           // not enough products in stock
           if (data.hasError && quantity > 0) {
             ajaxCart.showToaster(data.errors[0], true);
@@ -96,11 +103,6 @@ var Color = function(id, n, c, p, q) {
             }
 
             if (qtyDonut) {
-              qtyDonut.classList.remove('qty-update');
-              var donutSpinner = qtyDonut.getElementsByTagName('img')[0];
-              if (donutSpinner) {
-                qtyDonut.removeChild(donutSpinner);
-              }
               qtyDonut.classList.remove('pulse');
               qtyDonut.textContent = quantity;
               setTimeout(function(){
