@@ -50,7 +50,7 @@ var Color = function(id, n, c, p) {
           // not enough products in stock should be handled here as well
           //console.log( "Data Loaded: " + data );
           data = JSON.parse(data);
-          console.log(data);
+          // console.log(data);
           if (data.hasError && quantity > 0) {
             ajaxCart.showToaster(data.errors[0], true);
             quantityInput.value = quantity = oldQty;
@@ -259,6 +259,48 @@ window.onload = function(){
     }
   };
 
+  var setProperColorsQuantity = function(jsonData) {
+    var keyboardEvent = document.createEvent("KeyboardEvent");
+    var initMethod = (typeof keyboardEvent.initKeyboardEvent !== 'undefined') ?
+                      "initKeyboardEvent" : "initKeyEvent";
+    keyboardEvent[initMethod](
+      "keydown", true, true, window, false, false, false, false, 13, 0
+    );
+
+    var products = jsonData.products;
+    for (i = 0; i < products.length; i++) {
+      if (products[i].quantity !== 0) {
+        var colorName = products[i].attributes;
+        var colorBar = document.getElementById('c1-' + colorName + '1');
+        var colorBarInput = colorBar.getElementsByTagName('input')[0];
+        colorBarInput.value = products[i].quantity;
+        colorBarInput.focus();
+        colorBarInput.dispatchEvent(keyboardEvent);  
+      }    
+    }
+    // var cartAlert = $('#alert_cart');
+    // cartAlert.css('display','none');
+    $('.alert_cart').slideUp(400, function () {
+      $(this).remove()
+    })
+  };
+
+  var refresh = function(){
+    $.ajax({
+      type: 'POST',
+      headers: { "cache-control": "no-cache" },
+      url: baseUri + '?rand=' + new Date().getTime(),
+      async: true,
+      cache: false,
+      dataType : "json",
+      data: 'controller=cart&ajax=true&token=' + static_token,
+      success: function(jsonData)
+      {
+        setProperColorsQuantity(jsonData);
+      }
+    });
+  }
+
   var stickList = function() {
     var spectrum = document.getElementById('c1-spectrum');
     var windowTop = window.scrollY;
@@ -305,6 +347,7 @@ window.onload = function(){
   removeBuyNowButtons();
   setTrashIcon();
   checkMobile();
+  refresh();
   window.addEventListener('resize', checkMobile);
   window.addEventListener('scroll', stickList);
 };
