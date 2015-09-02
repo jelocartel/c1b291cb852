@@ -148,10 +148,11 @@ var Color = function(id, n, c, p, q) {
   };
 
   var inputUpdate = function(evt, force) {
+    console.log('wywolalem inputUpdate');
     var value = parseInt(evt.target.value, 10);
     var id = evt.target.parentNode.parentNode.id;
-    if  (evt.keyCode === 13 || force) {
-      console.log('inputUpdate');
+    if  ((evt.keyCode === 13 || force) && quantity !== value) {
+      console.log('poszet update inputUpdate');
       var delta = Number.isNaN(value) ? 0 : value;
       updateQuantity(delta - quantity);
     }
