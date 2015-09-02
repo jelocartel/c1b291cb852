@@ -97,7 +97,10 @@ var Color = function(id, n, c, p, q) {
 
             if (qtyDonut) {
               qtyDonut.classList.remove('qty-update');
-              qtyDonut.removeChild(qtyDonut.getElementsByTagName('img')[0]);
+              var donutSpinner = qtyDonut.getElementsByTagName('img')[0];
+              if (donutSpinner) {
+                qtyDonut.removeChild(donutSpinner);
+              }
               qtyDonut.classList.remove('pulse');
               qtyDonut.textContent = quantity;
               setTimeout(function(){
