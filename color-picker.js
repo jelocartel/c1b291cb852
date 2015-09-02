@@ -32,7 +32,6 @@ var Color = function(id, n, c, p, q) {
     clearTimeout(reqTimeout);
 
     if (quantity !== 0 && !document.getElementById(name + '1')) {
-      console.log('dodaj spinner');
       if (!document.getElementById(name + '-spinner')) {
         chosenItem = document.createElement('li');
         chosenItem.id = name + '-spinner';
@@ -86,7 +85,6 @@ var Color = function(id, n, c, p, q) {
             oldQty = quantity;
             ajaxCart.showToaster();
             if (quantity !== 0 && !document.getElementById(name + '1')) {
-              console.log('zamien spinner na donut');
               var spinnerToRemove = document.getElementById(name + '-spinner');
               chosenList.removeChild(spinnerToRemove);
               createDonut();
