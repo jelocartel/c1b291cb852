@@ -53,7 +53,7 @@ var Color = function(id, n, c, p, q) {
       qtyDivUp.classList.add('qty-update');
       if (!document.getElementById('qty-donut-spinner' + name)) {
         var spin = qtyDivUp.appendChild(document.createElement('img'));
-        spin.id = 'qty-donut-spinner' + name;'qty-donut-spinner' + name
+        spin.id = 'qty-donut-spinner' + name;
         spin.src = C1.dir + "modules/c1b291cb852/spinner.gif";
       }
     }
