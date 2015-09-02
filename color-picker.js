@@ -1,12 +1,13 @@
 var colors = [];
 
-var Color = function(n, c, p) {
+var Color = function(id, n, c, p) {
   colors.push({
     name: n,
     color: c,
     extraPrice: p
   });
 
+  var colorId = id;
   var name;
   var color;
   var extraPrice;
@@ -22,32 +23,66 @@ var Color = function(n, c, p) {
   var qtyDonut;
   var selectedIndicator;
   var chosenItem;
+  var reqTimeout;
 
   var updateQuantity = function(deltaQty){
-    oldQty = quantity;
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
 
-    if (quantity !== 0 && oldQty === 0) {
-      createDonut();
+    clearTimeout(reqTimeout);
+    reqTimeout = setTimeout(function(){
+      $.post( "index.php?" + (new Date()), {
+        controller: 'cart',
+        delete: 1,
+        ajax: true,
+        id_product: C1.product.id,
+        token: token,
+        ipa: colorId
+      }).done(function( data ) {
+        $.post( "index.php?" + (new Date()), {
+          controller: 'cart',
+          add: 1,
+          ajax: true,
+          qty: quantity,
+          id_product: C1.product.id,
+          token: token,
+          ipa: colorId
+        }).done(function( data ) {
+          // not enough products in stock should be handled here as well
+          //console.log( "Data Loaded: " + data );
+          data = JSON.parse(data);
+          console.log(data);
+          if (data.hasError && quantity > 0) {
+            ajaxCart.showToaster(data.errors[0], true);
+            quantityInput.value = quantity = oldQty;
+          } else {
+            oldQty = quantity;
+            ajaxCart.showToaster();
+            if (quantity !== 0 && !document.getElementById(name + '1')) {
+              createDonut();
 
-      // Add 'selected indicator (✓)' to the color bar
-      selectedIndicator = document.createElement('img');
-      selectedIndicator.src = C1.dir + "modules/c1b291cb852/checked-sign.png";
-      selectedIndicator.classList.add('c1-checked-sign');
-      colorBar.appendChild(selectedIndicator);
+              // Add 'selected indicator (✓)' to the color bar
+              selectedIndicator = document.createElement('img');
+              selectedIndicator.src = C1.dir + "modules/c1b291cb852/checked-sign.png";
+              selectedIndicator.classList.add('c1-checked-sign');
+              colorBar.appendChild(selectedIndicator);
 
-    } else if (quantity === 0 && chosenItem) {
-      donutContainer.addEventListener('transitionend', removeDonut);
-      donutContainer.classList.remove('active');
-    }
+            } else if (quantity === 0 && chosenItem) {
+              donutContainer.addEventListener('transitionend', removeDonut);
+              donutContainer.classList.remove('active');
+            }
 
-    if (qtyDonut) {
-      qtyDonut.classList.remove('pulse');
-      qtyDonut.textContent = quantity;
-      setTimeout(function(){
-        qtyDonut.classList.add('pulse');
-      }, 100);
-    }
+            if (qtyDonut) {
+              qtyDonut.classList.remove('pulse');
+              qtyDonut.textContent = quantity;
+              setTimeout(function(){
+                qtyDonut.classList.add('pulse');
+              }, 100);
+            }
+          }
+          ajaxCart.refresh();
+        });
+      });
+    }, 500);
   };
 
   var createDonut = function() {
@@ -130,7 +165,7 @@ var Color = function(n, c, p) {
       colorBar.appendChild(extraPriceDiv);
       extraPriceDiv.classList.add('extra-price');
       var totalPrice = (parseFloat(extraPrice) + parseFloat(C1.product.price)).toFixed(2);
-      extraPriceDiv.innerHTML = totalPrice; 
+      extraPriceDiv.innerHTML = totalPrice;
     }
 
     var decrementButton = document.createElement('div');
@@ -206,7 +241,6 @@ var Color = function(n, c, p) {
 };
 
 window.onload = function(){
-
   var isMobile;
   var colors = [];
   var spectrum = document.getElementById('c1-spectrum');
@@ -245,14 +279,31 @@ window.onload = function(){
   };
 
   var setTrashIcon = function() {
-    console.log('trash');
     var trashListTitle = document.getElementsByClassName('c1-li-title')[0];
     var trashListIcon = document.createElement('img');
     trashListTitle.appendChild(trashListIcon);
     trashListIcon.src = C1.dir + "modules/c1b291cb852/trash.png";
   };
-  setTrashIcon();
 
+  var removeBuyNowButtons = function(){
+    var priceButtons = document.getElementsByClassName('content_prices')[0];
+    priceButtons.parentNode.removeChild(priceButtons);
+    priceButtons = '';
+  };
+
+  // request structure
+  // index.php?rand=rand
+  // post data:
+  // controller: 'cart'
+  // add: 1 //?
+  // ajax: "true"
+  // qty: qty
+  // id_product: id
+  // token: toke
+  // ipa: combination id?
+
+  removeBuyNowButtons();
+  setTrashIcon();
   checkMobile();
   window.addEventListener('resize', checkMobile);
   window.addEventListener('scroll', stickList);

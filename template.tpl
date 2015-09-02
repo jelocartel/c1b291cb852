@@ -24,6 +24,7 @@
     dir: baseDir,
     product: {
 {/literal}
+      id: {$product->id},
       price: ({$product->price}*1.23).toFixed(2)
 {literal}
     }
@@ -37,6 +38,7 @@
 {foreach from=$combinations key=id item=combination}
   {if strpos($combination.group_name, "Color") !== false && $combination.quantity > 0}
     new Color(
+      '{$combination.id_product_attribute}',
       '{$combination.attribute_name}',
       '{$combination.color_value}',
       parseFloat({$combination.price}*1.23).toFixed(2)
