@@ -53,7 +53,7 @@ var Color = function(id, n, c, p, q) {
       qtyDivUp.classList.add('qty-update');
       if (!document.getElementById('qty-donut-spinner' + name)) {
         var spin = qtyDivUp.appendChild(document.createElement('img'));
-        spin.id = 'qty-donut-spinner' + name;
+        spin.id = 'qty-donut-spinner' + name;'qty-donut-spinner' + name
         spin.src = C1.dir + "modules/c1b291cb852/spinner.gif";
       }
     }
@@ -317,7 +317,9 @@ window.onload = function(){
     var chosenList = document.getElementsByClassName('c1-chosen-colors')[0];
     var stickAnchor = document.getElementsByClassName('c1-main-container')[0];
     var listTop = stickAnchor.offsetTop + 320; // I don't know why 320px but it's working
-    if (windowTop > listTop) {
+    var listEnd = listTop + stickAnchor.offsetHeight;
+    console.log(listEnd);
+    if (windowTop > listTop && windowTop < listEnd) {
       chosenList.classList.add('sticky');
       if (spectrum) {
         spectrum.classList.remove('c1-offscreen-hidden');

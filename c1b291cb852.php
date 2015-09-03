@@ -37,16 +37,11 @@ class c1b291cb852 extends Module
 
     $this_product = new Product($_GET['id_product']);
     $combinations = $this_product->getAttributeCombinations($cookie->id_lang);
-    $enable = 0;
     for ($i = 0; $i < count($combinations); $i++) {
-      if (strpos($combinations[$i]["group_name"], "Color") !== False) {
-        $enable = 1;
-      }
       $attributeId = new Attribute($combinations[$i]['id_attribute']);
       $combinations[$i]["color_value"] = $attributeId->color == '0' ? 'img/co/'.$combinations[$i]['id_attribute'].'.jpg' : $attributeId->color;
     }
 
-    $smarty->assign('enable', $enable);
     $smarty->assign('product', $this_product);
     $smarty->assign('combinations', $combinations);
     return $this->display(__FILE__, 'template.tpl');
