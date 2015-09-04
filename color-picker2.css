@@ -126,7 +126,7 @@ body {
 }
 .c1-chosen-colors li {
   display: inline-block;
-  width: 33%;
+  width: 25%;
   list-style: none;
   text-decoration: none;
   box-sizing: border-box;
@@ -207,7 +207,7 @@ body {
     font-size: 11px;
   }
   .c1-chosen-colors li {
-    width: 50%;
+    width: 33%;
   }
   .c1-available-colors li:hover .c1-color-name {
     display: none;
@@ -236,6 +236,9 @@ body {
   }
   #c1-chosen-list {
     min-height: 30px;
+  }
+  .c1-chosen-colors li {
+    width: 50%;
   }
 }
 
