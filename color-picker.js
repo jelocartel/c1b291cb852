@@ -26,6 +26,7 @@ var Color = function(id, n, c, p, q) {
   var selectedIndicator;
   var chosenItem;
   var reqTimeout;
+  var spinner;
 
   var updateQuantity = function(deltaQty){
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
@@ -41,7 +42,7 @@ var Color = function(id, n, c, p, q) {
         spinnerContainer.className = 'c1-donut-div active spinner';
         chosenItem.appendChild(spinnerContainer);
 
-        var spinner = document.createElement('img');
+        spinner = document.createElement('img');
         spinner.src = C1.dir + "modules/c1b291cb852/spinner.gif";
         spinner.classList.add('c1-donut');
         spinnerContainer.appendChild(spinner);
@@ -83,6 +84,10 @@ var Color = function(id, n, c, p, q) {
               qtyDonut.removeChild(donutSpinner);
               qtyDonut.classList.remove('qty-update');
             }
+          } else if (spinner) {
+            console.log(spinner);
+            spinner.parentNode.removeChild(spinner);
+            spinner = null;
           }
           // not enough products in stock
           if (data.hasError && quantity > 0) {
@@ -92,8 +97,6 @@ var Color = function(id, n, c, p, q) {
             oldQty = quantity;
             ajaxCart.showToaster();
             if (quantity !== 0 && !document.getElementById(name + '1')) {
-              var spinnerToRemove = document.getElementById(name + '-spinner');
-              chosenList.removeChild(spinnerToRemove);
               createDonut();
               createSelectedIndicator();
 
