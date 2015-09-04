@@ -27,6 +27,7 @@ var Color = function(id, n, c, p, q) {
   var chosenItem;
   var reqTimeout;
   var spinner;
+  var spinnerListElement;
 
   var updateQuantity = function(deltaQty){
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
@@ -85,8 +86,7 @@ var Color = function(id, n, c, p, q) {
               qtyDonut.classList.remove('qty-update');
             }
           } else if (spinner) {
-            console.log(spinner);
-            spinner.parentNode.removeChild(spinner);
+            chosenItem.parentNode.removeChild(chosenItem);
             spinner = null;
           }
           // not enough products in stock
