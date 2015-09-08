@@ -33,6 +33,13 @@ body {
   -webkit-column-count: 2;
   -moz-column-count: 2;
 }
+@media (min-width: 481px) and (max-width: 700px) {
+  .c1-available-colors ul {
+    column-count: 1;
+    -webkit-column-count: 1;
+    -moz-column-count: 1;    
+  }
+}
 .c1-available-colors li {
   text-decoration: none;
   list-style: none;
@@ -225,7 +232,7 @@ body {
     width: 50%;
   }
 }
-@media (min-width: 481px) and (max-width: 767px) {
+@media (min-width: 701px) and (max-width: 767px) {
   .c1-available-colors li:hover .c1-color-name {
     display: none;
   }
@@ -295,10 +302,12 @@ body {
 @media (max-width: 480px) {
   .extra-price {
     margin-top: -51px;
+    background-color: transparent;
+    color: #fff;
   }
-  .c1-available-colors li:hover .extra-price {
+/*  .c1-available-colors li:hover .extra-price {
     margin-right: 5px;
-  }
+  }*/
   .c1-available-colors {
     width: 100%;
     border: none;
