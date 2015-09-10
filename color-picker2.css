@@ -11,7 +11,7 @@ body {
 }
 .c1-available-colors {
   display: inline-block;
-  width: 70%;
+  width: 76%;
   box-sizing: border-box;
   border-right: dashed 2px #333;
   min-height: 500px;
@@ -20,7 +20,7 @@ body {
 }
 .c1-chosen-colors {
   display: inline-block;
-  width: 30%;
+  width: 24%;
   box-sizing: border-box;
   min-height: 500px;
   padding: 15px 20px;
@@ -32,6 +32,14 @@ body {
   column-count: 2;
   -webkit-column-count: 2;
   -moz-column-count: 2;
+}
+@media (max-width: 991px) {
+  .c1-available-colors {
+    width: 70%;
+  }
+  .c1-chosen-colors {
+    width: 30%;
+  }
 }
 @media (min-width: 481px) and (max-width: 700px) {
   .c1-available-colors ul {
@@ -133,7 +141,7 @@ body {
 }
 .c1-chosen-colors li {
   display: inline-block;
-  width: 25%;
+  width: 33%;
   list-style: none;
   text-decoration: none;
   box-sizing: border-box;
@@ -212,9 +220,6 @@ body {
     height: 16px !important;
     padding-top: 1px;
     font-size: 11px;
-  }
-  .c1-chosen-colors li {
-    width: 33%;
   }
   .c1-available-colors li:hover .c1-color-name {
     display: none;
