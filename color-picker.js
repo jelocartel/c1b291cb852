@@ -349,6 +349,16 @@ window.onload = function(){
     priceButtonsParent.innerHTML = '<div style="padding:5px; color: #fff; text-align: center;">Wybierz kolory uzywając panelu kolorów poniżej.</div>';
   };
 
+  var setChosenListHeight = function() {
+    var chosenList = document.getElementsByClassName('c1-chosen-colors')[0];
+    var colorList = document.getElementsByClassName('c1-available-colors')[0];
+    if (screen.width > 480) {
+      chosenList.setAttribute("style","height:" + colorList.offsetHeight + 'px');
+    } else {
+      chosenList.setAttribute("style","height: auto");
+    }
+  }
+
   // request structure
   // index.php?rand=rand
   // post data:
@@ -363,7 +373,9 @@ window.onload = function(){
   removeBuyNowButtons();
   setTrashIcon();
   checkMobile();
+  setChosenListHeight();
   //refresh();
   window.addEventListener('resize', checkMobile);
+  window.addEventListener('resize', setChosenListHeight);
   window.addEventListener('scroll', stickList);
 };

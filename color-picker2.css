@@ -8,6 +8,7 @@ body {
   background-color: rgba(255, 255, 255, 0.4);
   margin-bottom: 20px;
   overflow: auto;
+  position: relative;
 }
 .c1-available-colors {
   display: inline-block;
@@ -22,8 +23,25 @@ body {
   display: inline-block;
   width: 24%;
   box-sizing: border-box;
-  min-height: 500px;
+  /*min-height: 500px;*/
   padding: 15px 20px;
+  position: relative;
+  /*background-color: #181818;*/
+}
+.c1-chosen-colors:after {
+  content: '';
+  background: #181818;
+  display: block;
+  position: absolute;
+  margin: 15px 20px 15px 20px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+#c1-chosen-list-title {
+  position: relative;
+  z-index: 2;
 }
 .c1-available-colors ul  {
   margin: 0;
@@ -137,7 +155,7 @@ body {
   -moz-column-count: 4;*/
 }
 #c1-chosen-list {
-  min-height: 300px;
+  /*min-height: 300px;*/
 }
 .c1-chosen-colors li {
   display: inline-block;
