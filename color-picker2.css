@@ -51,6 +51,9 @@ body {
   -webkit-column-count: 2;
   -moz-column-count: 2;
 }
+.c1-available-colors ul li {
+  break-inside:avoid-column;
+}
 @media (max-width: 991px) {
   .c1-available-colors {
     width: 70%;
