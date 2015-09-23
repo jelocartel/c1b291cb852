@@ -5,7 +5,8 @@ var Color = function(id, n, c, p, q) {
     name: n,
     color: c,
     extraPrice: p,
-    startQuantity: q
+    startQuantity: q,
+    id: id
   });
 
   var colorId = id;
@@ -33,10 +34,10 @@ var Color = function(id, n, c, p, q) {
     quantityInput.value = quantity = Math.max((quantity+deltaQty), 0);
     clearTimeout(reqTimeout);
 
-    if (quantity !== 0 && !document.getElementById(name + '1')) {
-      if (!document.getElementById(name + '-spinner')) {
+    if (quantity !== 0 && !document.getElementById(colorId + '1')) {
+      if (!document.getElementById(colorId + '-spinner')) {
         chosenItem = document.createElement('li');
-        chosenItem.id = name + '-spinner';
+        chosenItem.id = colorId + '-spinner';
         chosenList.appendChild(chosenItem);
 
         spinnerContainer = document.createElement('div');
@@ -49,13 +50,13 @@ var Color = function(id, n, c, p, q) {
         spinnerContainer.appendChild(spinner);
       }
     } else {
-      var donat = document.getElementById(name);
+      var donat = document.getElementById(colorId);
       var qtyDivUp = donat.getElementsByClassName('c1-qtyDonut')[0];
       qtyDivUp.classList.remove('pulse');
       qtyDivUp.classList.add('qty-update');
-      if (!document.getElementById('qty-donut-spinner' + name)) {
+      if (!document.getElementById('qty-donut-spinner' + colorId)) {
         var spin = qtyDivUp.appendChild(document.createElement('img'));
-        spin.id = 'qty-donut-spinner' + name;
+        spin.id = 'qty-donut-spinner' + colorId;
         spin.src = C1.dir + "modules/c1b291cb852/spinner.gif";
       }
     }
@@ -96,7 +97,7 @@ var Color = function(id, n, c, p, q) {
           } else {
             oldQty = quantity;
             ajaxCart.showToaster();
-            if (quantity !== 0 && !document.getElementById(name + '1')) {
+            if (quantity !== 0 && !document.getElementById(colorId + '1')) {
               createDonut();
               createSelectedIndicator();
 
@@ -129,11 +130,11 @@ var Color = function(id, n, c, p, q) {
 
   var createDonut = function() {
     chosenItem = document.createElement('li');
-    chosenItem.id = name;
+    chosenItem.id = colorId;
     chosenList.appendChild(chosenItem);
 
     donutContainer = document.createElement('div');
-    donutContainer.id = name + '1';
+    donutContainer.id = colorId + '1';
     donutContainer.classList.add('c1-donut-div');
     chosenItem.appendChild(donutContainer);
 
@@ -189,13 +190,14 @@ var Color = function(id, n, c, p, q) {
     }
   };
 
-  var create = function(colorName, colorValue, colorPrice, startQuantity) {
+  var create = function(colorName, colorValue, colorPrice, startQuantity, colorId) {
     name = colorName;
     color = colorValue;
     extraPrice = colorPrice;
     quantity = startQuantity;
+    colorId = colorId;
     colorBar = document.createElement('li');
-    colorBar.id = 'c1-' + name + '1';
+    colorBar.id = 'c1-' + colorId + '1';
     if (color.charAt(0) === '#') {
       colorBar.style.backgroundColor = color;
     } else {
@@ -292,7 +294,7 @@ var Color = function(id, n, c, p, q) {
 
   setChosenListTitle();
 
-  create(n, c, p, q);
+  create(n, c, p, q, id);
 };
 
 window.onload = function(){
