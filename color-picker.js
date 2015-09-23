@@ -185,7 +185,7 @@ var Color = function(id, n, c, p, q) {
     var value = parseInt(evt.target.value, 10);
     var id = evt.target.parentNode.parentNode.id;
     if  ((evt.keyCode === 13 || force) && quantity !== value) {
-      var delta = Number.isNaN(value) ? 0 : value;
+      var delta = isNaN(value) ? 0 : value;
       updateQuantity(delta - quantity);
     }
   };
