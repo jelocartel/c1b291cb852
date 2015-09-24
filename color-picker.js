@@ -263,12 +263,22 @@ var Color = function(id, n, c, p, q) {
   };
 
   // Simulate enter input
-  var keyboardEvent = document.createEvent("KeyboardEvent");
-  var initMethod = (typeof keyboardEvent.initKeyboardEvent !== 'undefined') ?
-                    "initKeyboardEvent" : "initKeyEvent";
-  keyboardEvent[initMethod](
-    "keydown", true, true, window, false, false, false, false, 13, 0
-  );
+  // var keyboardEvent = document.createEvent("KeyboardEvent");
+  // var initMethod = (typeof keyboardEvent.initKeyboardEvent !== 'undefined') ?
+  //                   "initKeyboardEvent" : "initKeyEvent";
+  // keyboardEvent[initMethod](
+  //   "keydown", true, true, window, false, false, false, false, 13, 0
+  // );
+
+  var ev = document.createEvent('KeyboardEvent');
+  // Send key '13' (= enter)
+  if ('initKeyEvent' in ev) {
+    ev.initKeyEvent(
+      'keydown', true, true, window, false, false, false, false, 13, 0);  
+  } else {
+    ev.initKeyboardEvent('keydown', true, true, window, false, false, false, false, 13, 0);
+  }
+  // document.body.dispatchEvent(ev);
 
   var removeAll = function(evt) {
     var item = evt.item;
@@ -277,7 +287,10 @@ var Color = function(id, n, c, p, q) {
     colorBarInput.focus();
     colorBarInput.value = 0;
     colorBar.classList.remove('donut-hover');
-    colorBarInput.dispatchEvent(keyboardEvent);
+    colorBarInput.dispatchEvent(ev);
+    colorBarInput.focus();
+    document.getElementById('search_query_top').focus();
+    // colorBarInput.dispatchEvent(keyboardEvent);
   };
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
