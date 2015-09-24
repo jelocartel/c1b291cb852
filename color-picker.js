@@ -289,8 +289,8 @@ var Color = function(id, n, c, p, q) {
     colorBar.classList.remove('donut-hover');
     colorBarInput.dispatchEvent(ev);
     colorBarInput.focus();
-    document.getElementById('search_query_top').focus();
-    // colorBarInput.dispatchEvent(keyboardEvent);
+    var fakeFocus = document.getElementById('fakeFocus');
+    fakeFocus.focus();
   };
 
   Sortable.create(document.getElementById('c1-chosen-list'), {
@@ -311,6 +311,9 @@ var Color = function(id, n, c, p, q) {
 };
 
 window.onload = function(){
+  var fakeFocus = document.body.appendChild(document.createElement('input'));
+  fakeFocus.id = 'fakeFocus';
+
   var isMobile;
   var colors = [];
   var spectrum = document.getElementById('c1-spectrum');
