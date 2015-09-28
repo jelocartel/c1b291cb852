@@ -190,6 +190,26 @@ var Color = function(id, n, c, p, q) {
     }
   };
 
+  try {
+    new CustomEvent("test");
+  } catch(e) {
+   var CustomEvent = function(event, params) {
+        var evt;
+        params = params || {
+            bubbles: false,
+            cancelable: false,
+            detail: undefined
+        };
+
+        evt = document.createEvent("CustomEvent");
+        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        return evt;
+    };
+
+    CustomEvent.prototype = window.Event.prototype;
+    window.CustomEvent = CustomEvent; // expose definition to window
+  }
+
   var create = function(colorName, colorValue, colorPrice, startQuantity, colorId) {
     name = colorName;
     color = colorValue;
@@ -252,6 +272,13 @@ var Color = function(id, n, c, p, q) {
       createDonut();
       createSelectedIndicator();
     }
+
+    window.addEventListener('removeColor', function(evt){
+      if (evt.detail === colorId) {
+        updateQuantity(-quantity);
+        colorBar.classList.remove('donut-hover');
+      }
+    })
   };
 
   var setChosenListTitle = function() {
@@ -296,7 +323,10 @@ var Color = function(id, n, c, p, q) {
   Sortable.create(document.getElementById('c1-chosen-list'), {
     animation: 150,
     group: "c1",
-    onRemove: removeAll
+    // onRemove: removeAll,
+    onRemove: function(evt){
+      window.dispatchEvent(new CustomEvent('removeColor', {'detail': evt.item.id}));
+    }
   });
 
   Sortable.create(document.getElementById('c1-trash-list'), {
@@ -309,6 +339,8 @@ var Color = function(id, n, c, p, q) {
 
   create(n, c, p, q, id);
 };
+
+// window.dispatchEvent(new CustomEvent('removeColor', {'detail': elem.dataset.id}));
 
 window.onload = function(){
   var fakeFocus = document.body.appendChild(document.createElement('input'));
