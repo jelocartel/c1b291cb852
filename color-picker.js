@@ -396,7 +396,7 @@ window.onload = function(){
     var priceButtonsParent = priceButtons.parentNode;
     //.removeChild(priceButtons);
     //priceButtons = '';
-    priceButtonsParent.innerHTML = '<div style="padding:5px; color: #fff; text-align: center;">Wybierz kolory uzywając panelu kolorów poniżej.</div>';
+    priceButtonsParent.innerHTML = '<div class="go-to-colorpicker" style="padding:5px; color: #fff; text-align: center;">Wybierz kolory uzywając panelu kolorów poniżej.</div>';
   };
 
   var setChosenListHeight = function() {
