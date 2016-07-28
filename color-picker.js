@@ -81,12 +81,18 @@ var Color = function(id, n, c, p, q) {
         }).done(function( data ) {
           data = JSON.parse(data);
           if (qtyDonut) {
+            // console.log('siema', qtyDonut)
             var donutSpinner = qtyDonut.getElementsByTagName('img')[0];
             if (donutSpinner) {
               qtyDonut.removeChild(donutSpinner);
               qtyDonut.classList.remove('qty-update');
             }
+            if (spinner) {
+              chosenItem.parentNode.removeChild(chosenItem);
+              spinner = null;
+            }
           } else if (spinner) {
+            // console.log('siema 2')
             chosenItem.parentNode.removeChild(chosenItem);
             spinner = null;
           }
@@ -170,6 +176,10 @@ var Color = function(id, n, c, p, q) {
   };
 
   var removeDonut = function() {
+    // console.log('remove', chosenItem);
+    var counter = chosenItem.getElementsByClassName('c1-qtyDonut')[0];
+    // console.log(counter);
+    counter.parentNode.removeChild(counter);
     chosenItem.removeEventListener('transitionend', removeDonut);
     chosenItem.parentNode.removeChild(chosenItem);
     chosenItem = null;
