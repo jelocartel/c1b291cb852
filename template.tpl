@@ -24,6 +24,10 @@
 
   {literal}
 
+  // chosen color list title when empty/filled list
+  var colorListTitleEmpty = 'Choose colors';
+  var colorListTitleFilled = 'Your colors:';
+
   var C1 = {
     dir: baseDir,
     qtyObject: {},

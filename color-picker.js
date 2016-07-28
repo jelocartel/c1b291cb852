@@ -283,9 +283,9 @@ var Color = function(id, n, c, p, q) {
 
   var setChosenListTitle = function() {
     if (chosenList.children.length === 0) {
-      listTitle.textContent = 'Choose colors';
+      listTitle.textContent = colorListTitleEmpty;
     } else {
-      listTitle.textContent = 'Your colors:';
+      listTitle.textContent = colorListTitleFilled;
     }
   };
 
