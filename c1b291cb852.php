@@ -49,7 +49,7 @@ class c1b291cb852 extends Module
     $smarty->assign('enable', $enable);
     $smarty->assign('product', $this_product);
     $smarty->assign('combinations', $combinations);
-    return $this->display(__FILE__, 'template.tpl');
+    return $this->display(__FILE__, 'c1b291cb852.tpl');
   }
 
 }
