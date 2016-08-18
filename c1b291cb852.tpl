@@ -25,7 +25,6 @@
   // chosen color list title when empty/filled list
   var colorListTitleEmpty = '{l s='Choose colors' mod='c1b291cb852'}';
   var colorListTitleFilled = '{l s='Your colors:' mod='c1b291cb852'}';
-
   {literal}
   var C1 = {
     dir: baseDir,
