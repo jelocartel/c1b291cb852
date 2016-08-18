@@ -73,7 +73,7 @@ var colorSpectrum = function(){
       ctx.fill();
     }
 
-    var target = document.getElementById('c1-' + colors[inx*toSkip].name + '1');
+    var target = document.getElementById('c1-' + colors[inx*toSkip].id + '1');
     if (target) {
       target.scrollIntoView();
     }
