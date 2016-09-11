@@ -296,6 +296,8 @@ body {
   position: relative;
   bottom: 0;
   height: auto;
+  z-index: 2;
+  border-top: solid 2px #fff;
 }
 
 #c1-trash-list .c1-li-title {
